@@ -5,8 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .validation import RegisterSchema
 from app import db, login
 
-def test_git():
-    pass
+
 
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
