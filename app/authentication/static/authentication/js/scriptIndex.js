@@ -78,17 +78,26 @@ Regform.addEventListener('submit', event => {
     else if(flag == false){
         warning.classList.add('hidden');
     }
-    async function sendData(){
-        let response = await fetch('http://192.168.137.128:4567/login', {
+    async function sendDataLogin(){
+        let response = await fetch('/login', {
             method: 'POST',
-            body: new FormData(Regform)
+            body: new FormData(Regform),
           });
-      
+
           let result = await response.json();
-      
-          console.log(result);
+          if(result.error){
+            warning.innerHTML = `${result.error[0]}`;
+            warning.classList.remove('hidden');
+          }
     }
-    if(!flag) sendData();
+    sendDataLogin();
+    if(true) {
+        sendData();
+        flag = true;
+    }
+    else if(flag == false){
+        warning.classList.add('hidden');
+    }
 });
 
 //ОТПРАВКА ФОРМЫ ЛОГИНА
@@ -99,7 +108,7 @@ loginform.addEventListener('submit', (event)=>{
     event.preventDefault();
 
     async function sendDataLogin(){
-        let response = await fetch('http://192.168.137.128:4567/login', {
+        let response = await fetch('/login', {
             method: 'POST',
             body: new FormData(loginform),
           });
