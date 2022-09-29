@@ -5,6 +5,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .validation import RegisterSchema
 from app import db, login
 
+def test_git():
+    pass
 
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -22,9 +24,10 @@ class Users(UserMixin, db.Model):
     @staticmethod
     def create_user(name: str, email: str, psw: str, r_psw: str):
         reg_schema = {"name": name, "email": email, "psw": psw, "r_psw": r_psw}
-        RegisterSchema().load(reg_schema)
 
+        RegisterSchema().load(reg_schema)
         user = Users(name=name, email=email, hash_password=generate_password_hash(psw))
+
         if not Users.query.filter_by(email=email).first():
             if not Users.query.filter_by(name=name).first():
                 db.session.add(user)

@@ -21,4 +21,4 @@
 #     geo_position =
 #     description =
 #
-# class
+# class PlacemarksMembers(db.Model):

@@ -7,7 +7,7 @@ from flask import (
     url_for,
 )
 from flask_login import login_user, logout_user, current_user, login_required
-from  marshmallow import  ValidationError
+from marshmallow import  ValidationError
 
 from .models import Users
 
@@ -15,13 +15,15 @@ authentication = Blueprint('authentication', __name__, template_folder='template
                            static_folder='static/authentication')
 
 
-@authentication.route('/login', methods=["GET", "POST", "OPTIONS"])
+@authentication.route('/login', methods=["GET", "POST"])
 def auth():
-    res = Response()
-    res.headers["Access-Control-Allow-Origin"] = "*"
+    resp = Response()
+    resp.headers["Access-Control-Allow-Origin"] = "*"
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        return render_template('login.html')
 
+    elif request.method == 'POST':
         if "login" in request.form:
             login_name = request.form.get('login-name')
             psw = request.form.get('password')
@@ -33,29 +35,26 @@ def auth():
                 return redirect(url_for('.index')) ##############
             except ValidationError as err:
                 print(err.messages)
-                return {"error": err.messages}
+                resp.data = json.dumps({"error": err.messages})
+                return resp
 
         elif "registration" in request.form :
             email = request.form.get('email')
             name = request.form.get('name')
             psw = request.form.get('password')
-            repeat_psw = request.form.get("repeat password")
-
+            repeat_psw = request.form.get("repeat-password")
             try:
                 Users.create_user(name, email, psw, repeat_psw)
                 return redirect(url_for('.auth'))
             except ValidationError as err:
                 print(err.messages)
-                return {"error": err.messages}
-
-    if request.method == 'GET':
-        print(res.headers)
-        return {"Hui": 123}#render_template('login.html')
+                resp.data = json.dumps({"error": err.messages})
+                return resp
 
 @authentication.route('/logout', methods=["POST", "GET"])
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('.index'))
 
 ########################
 
