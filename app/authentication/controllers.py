@@ -45,6 +45,7 @@ def auth():
             repeat_psw = request.form.get("repeat-password")
             try:
                 Users.create_user(name, email, psw, repeat_psw)
+
                 return redirect(url_for('.auth'))
             except ValidationError as err:
                 print(err.messages)
@@ -57,6 +58,11 @@ def logout():
     return redirect(url_for('.index'))
 
 ########################
+
+@authentication.route('/profile')
+def profile():
+    name = current_user.name
+    return render_template("profile.html", name=name)
 
 @authentication.route('/')
 @authentication.route('/index')
