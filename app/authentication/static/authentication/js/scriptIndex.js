@@ -84,11 +84,15 @@ Regform.addEventListener('submit', event => {
             body: new FormData(Regform),
           });
 
-          let result = await response.json();
-          if(result.error){
+          if(response.url){
+            window.location.href = response.url;
+          }
+          else{
+            let result = await response.json();
             warning.innerHTML = `${result.error[0]}`;
             warning.classList.remove('hidden');
           }
+
     }
     sendDataLogin();
     if(true) {

@@ -31,6 +31,7 @@ class Users(UserMixin, db.Model):
             if not Users.query.filter_by(name=name).first():
                 db.session.add(user)
                 db.session.commit()
+                return user
             else:
                 raise ValidationError("Пользователь с таким именем существует")
         else:
