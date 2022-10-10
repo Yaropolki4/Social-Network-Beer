@@ -74,16 +74,14 @@ function init() {
         myMap.controls.remove('zoomControl'); // удаляем контрол зуммирования
         myMap.controls.remove('rulerControl'); // удаляем контрол правил
         map.addEventListener('click', event => {
-            console.log(event.target.closest('.nav')==nav);
             if(event.target.closest('.nav')!=nav){
-                nav.classList.remove('notifications');
-                borderButton.classList.remove('notifications');
-                notifications.classList.remove('notifications');
+                nav.classList.remove('visible');
+                borderButton.classList.remove('visible');
+                notifications.classList.remove('visible');
+                friends.classList.remove('visible');
             }
         });
 }
-
-
 
 
 

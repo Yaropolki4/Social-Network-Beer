@@ -6,7 +6,6 @@ from .validation import RegisterSchema
 from app import db, login
 
 
-
 class Users(UserMixin, db.Model):
     __tablename__ = 'users'
 
@@ -14,6 +13,9 @@ class Users(UserMixin, db.Model):
     name = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     hash_password = db.Column(db.String(128), nullable=False)
+
+    # user_info = db.relationship('UserInfo',
+    #                         backref='user')
 
     def __init__(self, name, email, hash_password):
         self.name = name

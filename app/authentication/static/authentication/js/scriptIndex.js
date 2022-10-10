@@ -53,7 +53,7 @@ Regform.addEventListener('submit', event => {
         warning.classList.add('hidden');
     }
 
-    if(password.value != repPassword.value){
+    if(password.value != repPassword.value && flag!=true){
         warning.classList.remove('hidden');
         warning.innerHTML = 'Пароли не совпадают';
         flag = true;
@@ -62,7 +62,7 @@ Regform.addEventListener('submit', event => {
         warning.classList.add('hidden');
     }
 
-    if(userName.value.length<=4 || userName.value.match(/[A-z0-9]+/i)[0] != userName.value){
+    if(userName.value.length<=4 || userName.value.match(/[A-z0-9]+/i)[0] != userName.value && flag!=true){
         warning.classList.remove('hidden');
         warning.innerHTML = 'Логин не подходит';
         flag = true;
@@ -70,7 +70,7 @@ Regform.addEventListener('submit', event => {
     else if(flag == false){
         warning.classList.add('hidden');
     }   
-    if(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(Email.value)==false){
+    if(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(Email.value)==false && flag!=true){
         warning.classList.remove('hidden');
         warning.innerHTML = 'E-mail не подходит';
         flag = true;
@@ -84,19 +84,18 @@ Regform.addEventListener('submit', event => {
             body: new FormData(Regform),
           });
 
-          if(response.url){
-            window.location.href = response.url;
+          let result = await response.json()
+          if(result['url-redirect']){
+            window.location.href = result['url-redirect'];
           }
           else{
-            let result = await response.json();
             warning.innerHTML = `${result.error[0]}`;
             warning.classList.remove('hidden');
           }
 
     }
-    sendDataLogin();
-    if(true) {
-        sendData();
+    if(flag!=true) {
+        sendDataLogin();
         flag = true;
     }
     else if(flag == false){
@@ -110,17 +109,16 @@ let loginform = document.forms.login;
 
 loginform.addEventListener('submit', (event)=>{
     event.preventDefault();
-
     async function sendDataLogin(){
         let response = await fetch('/login', {
             method: 'POST',
             body: new FormData(loginform),
           });
-          if(response.url){
-            window.location.href = response.url;
+          let result = await response.json()
+          if(result['url-redirect']){
+            window.location.href = result['url-redirect'];
           }
           else{
-            let result = await response.json();
             warning.innerHTML = `${result.error[0]}`;
             warning.classList.remove('hidden');
           }

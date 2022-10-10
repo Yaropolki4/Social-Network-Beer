@@ -20,7 +20,17 @@ body {
   background-position: right;
 }
 
+.wrapper .nav.visible {
+  display: block;
+  width: 350px;
+}
+
+.wrapper .nav.visible .nav-item {
+  display: none;
+}
+
 .wrapper .nav {
+  transition: all 1s ease 0s;
   border-right: 1px solid orange;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -35,6 +45,17 @@ body {
   top: 0;
   left: 0;
   backdrop-filter: blur(3px);
+  /* & .nav-item_notifications{
+            position: relative;
+            & .notifications{
+                position: absolute;
+                top: 0;
+                width: 350px;
+                height: 50px;
+                border: 1px solid black;
+
+            }
+        } */
 }
 
 @media (max-width: 1280px) {
@@ -55,12 +76,6 @@ body {
   }
 }
 
-@media (max-width: 799px) {
-  .wrapper .nav {
-    width: 100px;
-  }
-}
-
 @media (max-width: 768px) {
   .wrapper .nav {
     flex-direction: row;
@@ -69,9 +84,68 @@ body {
   }
 }
 
+.wrapper .nav .nav-close-notifications {
+  transition: all 1s ease 0s;
+  display: none;
+  position: absolute;
+  right: -2px;
+  height: 100%;
+  width: 1px;
+  background-color: #e39401;
+}
+
+.wrapper .nav .nav-close-notifications.visible {
+  display: block;
+  width: 10px;
+  transition: all 1s ease 0s;
+}
+
+.wrapper .nav .nav-notifications {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wrapper .nav .nav-notifications .nav-notifications-item {
+  font-size: 20px;
+  color: white;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid #e39401;
+}
+
+.wrapper .nav .nav-notifications.visible {
+  display: flex;
+}
+
+.wrapper .nav .nav-friends {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wrapper .nav .nav-friends .nav-friends-item {
+  font-size: 20px;
+  color: white;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid #e39401;
+}
+
+.wrapper .nav .nav-friends.visible {
+  display: flex;
+}
+
 .wrapper .nav .nav-item {
-  width: 130px;
+  display: flex;
+  flex-direction: column;
+  width: 110px;
   cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e39401;
+  text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
 }
 
 @media (max-width: 1280px) {
@@ -90,6 +164,10 @@ body {
   .wrapper .nav .nav-item {
     width: 65px;
   }
+}
+
+.wrapper .nav .nav-item .nav-item-title {
+  margin-top: 10px;
 }
 
 .wrapper .container {
@@ -196,6 +274,55 @@ body {
 .wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-esc:hover {
   border: 1px solid #e39401;
   color: #e39401;
+}
+
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-escapeWindow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-escapeWindow .profile-main-ava-nickname-escapeWindow-window.visible {
+  display: block;
+}
+
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-escapeWindow .profile-main-ava-nickname-escapeWindow-window {
+  display: none;
+  pointer-events: all;
+  width: 610px;
+  height: 200px;
+  border: 1px solid #e39401;
+  backdrop-filter: blur(3px);
+  border-radius: 15px;
+}
+
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-escapeWindow .profile-main-ava-nickname-escapeWindow-window .window-text {
+  margin-top: 50px;
+  font-size: 30px;
+}
+
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-escapeWindow .profile-main-ava-nickname-escapeWindow-window .window-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-escapeWindow .profile-main-ava-nickname-escapeWindow-window .window-buttons .window-button {
+  width: 230px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 10px;
+  background: none;
+  border: 2px solid #e39401;
+  color: #e39401;
+  font-weight: 600;
 }
 
 .wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit {
@@ -321,3 +448,4 @@ body {
     height: 120px;
   }
 }
+
