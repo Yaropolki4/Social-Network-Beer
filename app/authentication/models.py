@@ -14,8 +14,8 @@ class Users(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     hash_password = db.Column(db.String(128), nullable=False)
 
-    # user_info = db.relationship('UserInfo',
-    #                         backref='user')
+    user_info = db.relationship('UserInfo',
+                            backref='user')
 
     def __init__(self, name, email, hash_password):
         self.name = name

@@ -59,3 +59,62 @@ document.addEventListener('click', event => {
         friends.classList.remove('visible');
     }
 });
+
+
+let navFriends = document.querySelector('.nav-friends');
+let chat = document.querySelector('.nav-friends-chat');
+let chatCloseButton = document.querySelector('.nav-friend-chat-close');
+
+navFriends.addEventListener('click', event =>{
+    if((event.target.closest('.nav-friends-item'))){
+        chat.classList.add('opened');
+    }
+});
+
+document.addEventListener('click', event =>{
+    if(event.target.closest('.nav-friend-chat-close') || event.target.closest('.nav-friends')!=navFriends){
+        chat.classList.remove('opened');
+    }
+});
+
+
+let messageArea = document.querySelector('.nav-friends-chat-field');
+let textArea = document.querySelector('.nav-friends-chat-form-text');
+
+textArea.innerHTML = '';
+
+document.addEventListener('DOMContentLoaded', () => {
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', () =>{
+        socket.send('im connected');
+    });
+    textArea.addEventListener('keydown', event =>{
+    let tags = /<(.*?)>/g;
+    let data = textArea.innerHTML;
+    if(event.code == 'Enter' && data.replace(tags, '')){
+        textArea.innerHTML = '';
+        setTimeout(()=>{
+            if(textArea.querySelectorAll('div')[1]){
+                let div = textArea.querySelectorAll('div')[0];
+                div.remove();
+            }
+        }, 0)
+
+        socket.send(`${data.replace(tags, '')}`);
+    }
+    });
+
+    socket.on('message', data => {
+        let message = document.createElement('div');
+        message.classList.add('nav-friends-chat-field-item');
+        message.innerHTML = `${data}`;
+        messageArea.append(message);
+        message.scrollIntoView(top = false,{
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+
+
+});
+

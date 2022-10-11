@@ -49,7 +49,15 @@
             </div>
             <div class="nav-friends">
                 <div class="nav-friends-item">
-                    Друг
+                    <div class="nav-friends-item-ava">
+                        <img src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                    </div>
+                    <div class="nav-friends-item-nick">
+                        <span>бухарик</span>
+                    </div>
+                    <div class="nav-friends-item-online">
+                        <span>Online</span>
+                    </div>
                 </div>
                 <div class="nav-friends-item">
 
@@ -59,6 +67,25 @@
                 </div>
                 <div class="nav-friends-item">
 
+                </div>
+                <div class="nav-friends-chat">
+                    <div class="nav-friends-chat-field">
+                    </div>
+                    <div class="nav-friends-chat-form">
+                        <form name = 'chatForm' action="">
+                            <div class="form-container">
+                                <div contenteditable="true" class="nav-friends-chat-form-text">
+
+                                </div>
+                                <div class="nav-friends-chat-form-submit" >
+                                    <input name = 'message-submit' type="submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="nav-friend-chat-close">
+                        <img src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,6 +183,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script src="{{url_for('.static', filename='js/script_profile.js')}}"></script>
 </body>
 </html>

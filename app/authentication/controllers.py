@@ -8,7 +8,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user, current_user, login_required
 from marshmallow import  ValidationError
-from flask_socketio import send, emit
+from flask_socketio import send, emit, join_room
 
 from app import socketio
 from .models import Users
@@ -78,13 +78,16 @@ def profile():
 def index():
     return render_template('main.html')
 
-
+"""SOCKET"""
 @socketio.on('message')
 def message(data):
+    #print(f"\n\n{data}\n\n")
+    send(data, broadcast=True)
 
-    print(f"\n\n{data}\n\n")
+@socketio.on('join')
+def join(data):
+    join_room(data['room'])
+    send({'msg': data['name'] + ' законектился.'}, room=data['room'])
 
-    send(data)
-    emit()
 
 
