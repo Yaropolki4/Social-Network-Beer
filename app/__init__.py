@@ -24,7 +24,9 @@ def create_app():
     login.login_view = 'authentication.auth'
 
     import app.authentication.controllers as auth
+    import app.user.controllers as user
 
     app.register_blueprint(auth.authentication)
+    app.register_blueprint(user.user)
 
     return app

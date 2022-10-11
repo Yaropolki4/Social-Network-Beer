@@ -1,16 +1,15 @@
 import datetime
 
-from sqlalchemy import or_, in_
+from sqlalchemy import or_
 
-from .validation import RegisterSchema
 from app import db, login
 
 
 class FriendshipRequest(db.Model):
 
-    from_user = db.Column(db.Integer, db.ForeingKey("userinfo.user_id"),
-                          nullable=False)
-    to_user = db.Column(db.Integer, db.ForeingKey("userinfo.user_id"),
+    from_user = db.Column(db.Integer, db.ForeignKey("users.id"),
+                          primary_key=True, nullable=False)
+    to_user = db.Column(db.Integer, db.ForeignKey("users.id"),
                         nullable=False)
     message = db.Column(db.String(100), nullable=True)
 
@@ -75,8 +74,8 @@ class FriendshipManager():
 class Friends(db.Model):
     __tablename__ = "friends"
 
-    user_id = db.Column(db.Integer, db.ForeingKey("userinfo.user_id"), nullable=False)
-    friend_id = db.Column(db.Integer, db.ForeingKey("userinfo.user_id"), nullable=False)
-    created_time = db.Column(db.Datetime(timezone=True), default=datetime.datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable=False)
+    friend_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    created_time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     objects = FriendshipManager()

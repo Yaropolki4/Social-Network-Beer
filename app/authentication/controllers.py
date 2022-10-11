@@ -8,9 +8,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user, current_user, login_required
 from marshmallow import  ValidationError
-from flask_socketio import send, emit, join_room
 
-from app import socketio
 from .models import Users
 
 authentication = Blueprint('authentication', __name__, template_folder='templates/authentication',
@@ -35,12 +33,12 @@ def auth():
                 try:
                     user = Users.get_user_for_login(login_name, psw)
                     login_user(user, remember=rm)
-                    resp.data = json.dumps({"url-redirect": url_for('.index')})
-                    return resp ##############
+                    resp.data = json.dumps({"url-redirect": url_for('user.index')})
+                    return resp
                 except ValidationError as err:
                     print(err.messages)
                     resp.data = json.dumps({"error": err.messages})
-                    print(resp.data)
+                    # print(resp.data)
                     return resp
 
             elif "registration" in request.form :
@@ -51,43 +49,20 @@ def auth():
                 try:
                     user = Users.create_user(name, email, psw, repeat_psw)
                     login_user(user, remember=True)
-                    resp.data = json.dumps({"url-redirect": url_for('.index')})
+                    resp.data = json.dumps({"url-redirect": url_for('user.index')})
                     return resp
                 except ValidationError as err:
                     print(err.messages)
                     resp.data = json.dumps({"error": err.messages})
-                    print(resp.data)
+                    # print(resp.data)
                     return resp
 
 @authentication.route('/logout', methods=["POST", "GET"])
 def logout():
     logout_user()
-    return redirect(url_for('.index'))
+    return redirect(url_for('user.index'))
 
 ########################
-
-@authentication.route('/profile')
-@login_required
-def profile():
-    name = current_user.name
-    return render_template("profile.html", name=name)
-
-@authentication.route('/')
-@authentication.route('/index')
-@login_required
-def index():
-    return render_template('main.html')
-
-"""SOCKET"""
-@socketio.on('message')
-def message(data):
-    #print(f"\n\n{data}\n\n")
-    send(data, broadcast=True)
-
-@socketio.on('join')
-def join(data):
-    join_room(data['room'])
-    send({'msg': data['name'] + ' законектился.'}, room=data['room'])
 
 
 
