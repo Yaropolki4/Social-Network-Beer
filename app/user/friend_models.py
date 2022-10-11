@@ -76,6 +76,7 @@ class Friends(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True, nullable=False)
     friend_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_info_id = db.Column(db.Integer, db.ForeignKey("usersinfo.id"), nullable=False)
     created_time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     objects = FriendshipManager()
