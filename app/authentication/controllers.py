@@ -10,6 +10,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from marshmallow import  ValidationError
 
 from .models import Users
+from app.user.user_models import UserInfo
 
 authentication = Blueprint('authentication', __name__, template_folder='templates/authentication',
                            static_folder='static/authentication')
@@ -47,7 +48,10 @@ def auth():
                 psw = request.form.get('password')
                 repeat_psw = request.form.get("repeat-password")
                 try:
+
                     user = Users.create_user(name, email, psw, repeat_psw)
+                    UserInfo.create_user_info_default(user.id)
+
                     login_user(user, remember=True)
                     resp.data = json.dumps({"url-redirect": url_for('user.index')})
                     return resp

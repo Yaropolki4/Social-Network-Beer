@@ -26,6 +26,14 @@ class RegisterSchema(Schema):
         if data['psw'] != data['r_psw']:
             raise ValidationError("Введенные пароли не совпадают")
 
+class NameSchema(Schema):
+    name = Str(required=True, validate=Length(min=3, max=20))
+
+    @validates('name')
+    def validate_name(self, name: str):
+        if not re.fullmatch(r"[A-Za-z0-9]+", name):
+            raise ValidationError("Имя должно содержать только цифры и буквы")
+
 
 
 

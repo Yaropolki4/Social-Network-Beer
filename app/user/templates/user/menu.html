@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/style_menu.css')}}">
+</head>
+<body>
+    <div class="nav">
+            <div class="nav-main nav-item">
+                <a href="/index"><img class = 'nav-main-img' src="{{url_for('.static', filename='image/logo.svg')}}" alt=""></a>
+                <span class = 'nav-item-title'>Мейн</span>
+            </div>
+            <div class="nav-main nav-item">
+                <a href="/profile"><img class = 'nav-main-img' src="{{url_for('.static', filename='image/logo.svg')}}" alt=""></a>
+                <span class = 'nav-item-title'>Профиль</span>
+            </div>
+            <div class="nav-main nav-item nav-item_friends">
+                <img class = 'nav-main-img' src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                <span class = 'nav-item-title'>Друзья</span>
+            </div>
+            <div class="nav-main nav-item nav-item_notifications">
+                <img class = 'nav-main-img' src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                <span class = 'nav-item-title'>Уведомления</span>
+            </div>
+            <div class="nav-main nav-item ">
+                <img class = 'nav-main-img' src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                <span class = 'nav-item-title'>Инструкция</span>
+            </div>
+            <div class="nav-close-notifications">
+
+            </div>
+            <div class="nav-notifications">
+                <div class="nav-notifications-item">
+                    Мой член большой
+                </div>
+                <div class="nav-notifications-item">
+
+                </div>
+                <div class="nav-notifications-item">
+
+                </div>
+                <div class="nav-notifications-item">
+
+                </div>
+            </div>
+            <div class="nav-friends">
+                <div class="nav-friends-item">
+                    <div class="nav-friends-item-ava">
+                        <img src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                    </div>
+                    <div class="nav-friends-item-nick">
+                        <span>бухарик</span>
+                    </div>
+                    <div class="nav-friends-item-online">
+                        <span>Online</span>
+                    </div>
+                </div>
+                <div class="nav-friends-item">
+
+                </div>
+                <div class="nav-friends-item">
+
+                </div>
+                <div class="nav-friends-item">
+
+                </div>
+                <div class="nav-friends-chat">
+                    <div class="nav-friends-chat-field">
+                    </div>
+                    <div class="nav-friends-chat-form">
+                        <form name = 'chatForm' action="">
+                            <div class="form-container">
+                                <div contenteditable="true" class="nav-friends-chat-form-text">
+
+                                </div>
+                                <div class="nav-friends-chat-form-submit" >
+                                    <input name = 'message-submit' type="submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="nav-friend-chat-close">
+                        <img src="{{url_for('.static', filename='image/logo.svg')}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% block content -%}
+    {% endblock -%}
+    <script src = "{{url_for('.static', filename='js/script_menu.js')}}"></script>
+</body>
+</html>

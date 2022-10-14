@@ -432,7 +432,7 @@ body {
   font-weight: 600;
 }
 
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit-but {
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit {
   margin-top: 15px;
   width: 100%;
   border: 1px solid #e39401;
@@ -440,106 +440,11 @@ body {
   border-radius: 10px;
 }
 
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit-but .profile-main-ava-edit-button {
+.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-button {
   width: 100%;
   background: none;
   height: 30px;
   color: orange;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit.visible {
-  display: flex;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow {
-  display: flex;
-  flex-direction: column;
-  pointer-events: all;
-  width: 450px;
-  height: 200px;
-  align-items: center;
-  border: 1px solid #e39401;
-  backdrop-filter: blur(3px);
-  border-radius: 15px;
-  padding: 10px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-text {
-  font-size: 24px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-edit {
-  margin-top: 30px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-edit .window-edit-nick {
-  display: flex;
-  column-gap: 20px;
-  font-size: 18px;
-  justify-content: space-between;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-edit .window-edit-nick .window-edit-nick-field input {
-  background: none;
-  color: #e39401;
-  border: 1px solid #e39401;
-  border-radius: 5px;
-  padding: 0 5px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-edit .window-edit-status {
-  margin-top: 20px;
-  display: flex;
-  column-gap: 20px;
-  font-size: 18px;
-  justify-content: space-between;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-edit .window-edit-status .window-edit-status-field input {
-  background: none;
-  color: #e39401;
-  border: 1px solid #e39401;
-  border-radius: 5px;
-  padding: 0 5px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-submit {
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-around;
-  font-size: 18px;
-  column-gap: 50px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-submit .window-submit-submit input {
-  cursor: pointer;
-  background: none;
-  color: #e39401;
-  border: 1px solid #e39401;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit .profile-main-ava-edit-Editwindow .window-submit .window-submit-clear input {
-  cursor: pointer;
-  background: none;
-  color: #e39401;
-  border: 1px solid #e39401;
-  padding: 5px;
-  border-radius: 5px;
 }
 
 .wrapper .container .profile-main .profile-main-achievements {

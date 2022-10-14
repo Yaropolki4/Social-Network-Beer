@@ -1,5 +1,7 @@
 {% extends 'menu.html' %}
 {% block content -%}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{{url_for('.static', filename='css/style_profile.css')}}">
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/style_other_profile.css')}}">
 </head>
 <body>
     <div class="wrapper">
@@ -99,57 +101,10 @@
                     </div>
 
                     <div class="profile-main-ava-nickname">
-                        <span class = 'profile-main-ava-nickname-nick'>{{name}}</span>
-                        <span class = 'profile-main-ava-nickname-esc'>выйти</span>
-                        <div class="profile-main-ava-nickname-escapeWindow">
-                            <div class="profile-main-ava-nickname-escapeWindow-window">
-                                <div class="window-text">Ты действительно хочешь выйти?</div>
-                                <div class="window-buttons">
-                                    <div class="window-buttons-exit">
-                                        <a href="/logout"><button class = 'window-buttons-exit-button window-button'>Выйти</button></a>
-                                    </div>
-                                    <div class="window-buttons-cancel">
-                                        <button class="window-buttons-cancel-button window-button">Отмена</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="profile-main-ava-edit-but">
-                        <button class="profile-main-ava-edit-button">Редактировать профиль</button>
+                        <span class = 'profile-main-ava-nickname-nick'>ПИВОЗАВР</span>
                     </div>
                     <div class="profile-main-ava-edit">
-                        <div class="profile-main-ava-edit-Editwindow">
-                            <div class="window-text">Редактирование профиля</div>
-                            <form name = 'editProfile' action="">
-                                <div class="window-edit">
-                                    <div class="window-edit-nick">
-                                        <div class="window-edit-nick-descr">
-                                            Сменить имя
-                                        </div>
-                                        <div class="window-edit-nick-field">
-                                            <input name="username" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="window-edit-status">
-                                        <div class="window-edit-status-descr">
-                                            Сменить статус
-                                        </div>
-                                        <div class="window-edit-status-field">
-                                            <input name="description" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="window-submit">
-                                    <div class="window-submit-submit">
-                                        <input name = 'submitChanges' type="submit">
-                                    </div>
-                                    <div class="window-submit-clear">
-                                        <input name = 'reserChanges' type="reset">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <button class="profile-main-ava-edit-button">Добавить в друзья</button>
                     </div>
                 </div>
                 <div class="profile-main-achievements">
@@ -186,7 +141,7 @@
             </div>
             <div class="profile-info">
                 <div class="profile-info-status">
-                    <span>{{description}}</span>
+                    <span>Люблю пиво</span>
                 </div>
                 <div class="profile-info-events">
                     <div class="profile-info-events-header">
@@ -219,7 +174,7 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script src="{{url_for('.static', filename='js/script_profile.js')}}"></script>
+    <script src="{{url_for('.static', filename='js/other_profile_script.js')}}"></script>
 </body>
 </html>
  {% endblock -%}
