@@ -74,8 +74,8 @@ def message(data):
     send(data, broadcast=True)
 
 @socketio.on('friendship_request')
-def friendship_request(data):
-    to_user = Users.get_user_by_name(data.name)
+def friendship_request(name):
+    to_user = Users.get_user_by_name(name)
     FriendshipRequest.create_friendship_request(from_user=current_user.id, to_user=to_user.id)
     send_data = {"from_user": current_user.name}
     emit('friend_notification', send_data, room=to_user.id)
