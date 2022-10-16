@@ -16,10 +16,15 @@ class FriendshipRequest(db.Model):
     @staticmethod
     def create_friendship_request(from_user, to_user):
 
-        if FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user):
-            # If friendship request exist
+        if from_user==to_user:
+            print(1)
+            return False
+        if FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first():
+            print(2)
+            # Если запрос на дружбу существует
             return False
         else:
+            print(3)
             friendship_request = FriendshipRequest(from_user=from_user, to_user=to_user)
             db.session.add(friendship_request)
             db.session.commit()

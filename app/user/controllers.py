@@ -4,17 +4,17 @@ from flask import (
     Blueprint, render_template,
     request, Response,
     abort, redirect,
-    url_for,
+    url_for, session,
 )
 ###
 from flask_login import login_user, logout_user, login_required, current_user
-from  marshmallow import  ValidationError
+from marshmallow import  ValidationError
 from flask_socketio import send, emit, join_room
 
 from app import socketio
 from app.authentication.models import Users
 from .friend_models import Friends, FriendshipRequest
-from .user_models import UserInfo
+from .user_models import UserInfo, UserNotifications
 
 
 user = Blueprint('user', __name__, template_folder='templates/user',
@@ -68,6 +68,14 @@ def other_profile(name):
 
 
 """SOCKET"""
+
+@socketio.on('connect')
+def connect():
+    room = current_user.name
+    join_room(room)
+    #notifications = UserNotifications.get_notifications(current_user.user_info.id)
+    #emit('friend_notification', )
+
 @socketio.on('message')
 def message(data):
     #print(f"\n\n{data}\n\n")
@@ -77,8 +85,8 @@ def message(data):
 def friendship_request(name):
     to_user = Users.get_user_by_name(name)
     FriendshipRequest.create_friendship_request(from_user=current_user.id, to_user=to_user.id)
-    send_data = {"from_user": current_user.name}
-    emit('friend_notification', send_data, room=to_user.id)
+    send_data = current_user.name
+    emit('friend_notification', send_data, to=to_user.name)
 
 
 @socketio.on('resp_friendship_request')
