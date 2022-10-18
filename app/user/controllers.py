@@ -54,14 +54,14 @@ def edit_profile():
 @login_required
 def other_profile(name):
     user = Users.get_user_by_name(name)
+    friend_status = Friends.objects.get_friend_status(current_user.id, user.id)
 
     if name==current_user.name:
         return redirect(url_for(".profile"))
 
-
     if user:
         description = user.user_info[0].profile_description
-        return render_template("other_profile.html", name=name, description=description)
+        return render_template("other_profile.html", name=name, description=description, friend_status=friend_status)
     else:
         return redirect(url_for(".index"))
 
@@ -86,15 +86,45 @@ def friendship_request(name):
     to_user = Users.get_user_by_name(name)
     FriendshipRequest.create_friendship_request(from_user=current_user.id, to_user=to_user.id)
     send_data = current_user.name
-    emit('friend_notification', send_data, to=to_user.name)
+    resp = {"name": current_user.name, "info_status": "friend_notification"}
+    emit('update_friendship_info', resp, to=to_user.name)
+    emit('friendship_request_response', "friendship_request", to=current_user.name)
+
+@socketio.on('cancel_friendship_request')
+def cancel_friendship_request(name):
+    to_user = Users.get_user_by_name(name)
+    friendship_request = FriendshipRequest.get_request(from_user=current_user.id, to_user=to_user.id)
+    friendship_request.cansel()
+    emit('friendship_request_response', "cancel_friendship_request", to=current_user.name)
 
 
 @socketio.on('resp_friendship_request')
 def resp_friendship_request(data):
-    f_request = FriendshipRequest.get_request(data.from_user, current_user.id)
+    print(data)
+    from_user = Users.get_user_by_name(data['name'])
+    f_request = FriendshipRequest.get_request(from_user=from_user.id, to_user=current_user.id)
 
-    if data.resp == "accept":
-        f_request.accept()
-    elif data.resp == "reject":
+    # ответ, добавить или нет
+    if data['resp']:
+        user_info_id = current_user.user_info[0].id
+        friend_info_id = from_user.user_info[0].id
+        f_request.accept(user_info_id=user_info_id, friend_info_id=friend_info_id)
+
+        resp = {"name": current_user.name, "info_status": "friends"}
+        emit('update_friendship_info', resp,to=data['name'])
+        emit('friendship_request_response', "resp_friendship_request", to=current_user.name)
+    else:
         f_request.reject()
+
+        resp = {"name": current_user.name, "info_status": "reject"}
+        emit('update_friendship_info', resp, to=data['name'])
+        emit('friendship_request_response', "resp_friendship_request", to=current_user.name)
+
+@socketio.on('delete_friendship')
+def delete_friendship(name):
+    friend = Users.get_user_by_name(name)
+    Friends.objects.delete_friend(user_id=current_user.id, friend_id=friend.id)
+    resp = {"name": current_user.name, "info_status": "delete"}
+    emit('update_friendship_info', resp, to=name)
+    emit('friendship_request_response', "delete_friendship", to=current_user.name)
 
