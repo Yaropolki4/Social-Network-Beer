@@ -6,6 +6,10 @@ from app import db, login
 
 
 class FriendshipRequest(db.Model):
+    """
+    Запроса в друзья
+    from_user и to_user это id соответствующих юзеров
+    """
 
     from_user = db.Column(db.Integer, db.ForeignKey("users.id"),
                           primary_key=True, nullable=False)
@@ -14,11 +18,20 @@ class FriendshipRequest(db.Model):
     message = db.Column(db.String(100), nullable=True)
 
     @staticmethod
-    def create_friendship_request(from_user, to_user):
+    def create_friendship_request(from_user: int, to_user: int):
+        """
+        Создание запроса в друзья
+
+        :param from_user: int
+        :param to_user: int
+        :return:
+        """
 
         if from_user==to_user:
             return False
-        if FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first():
+        req_1 = FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first()
+        req_2 = FriendshipRequest.query.filter_by(from_user=to_user, to_user=from_user).first()
+        if req_1 or req_2:
             # Если запрос на дружбу существует
             return False
         else:
@@ -31,18 +44,18 @@ class FriendshipRequest(db.Model):
     def get_request(from_user, to_user):
         return FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first()
 
-    def accept(self, user_info_id, friend_info_id):
-        """Принять запрос в друзья"""
+    def accept(self, user_info_id: int, friend_info_id: int):
+        """
+        Принять запрос в друзья
+
+        :param user_info_id: int
+        :param friend_info_id: int
+        :return:
+        """
         Friends.objects.create_friendship(user_id=self.from_user, friend_id=self.to_user,
                                           user_info_id=user_info_id, friend_info_id=friend_info_id)
 
         db.session.delete(self)
-
-        # Для удаления зеркальных запросов(если такие вообще возможны)
-        # mirror_request = FriendshipRequest.query.filter_by(from_user=self.to_user,
-        #                                   to_user=self.from_user)
-        #
-        # db.session.delete(mirror_request)
         db.session.commit()
         return True
 
@@ -63,12 +76,12 @@ class FriendshipManager():
     def create_friendship(self, user_id, friend_id, user_info_id, friend_info_id):
         friendship = Friends(user_id=user_id, friend_id=friend_id, user_info_id=user_info_id)
         friendship_reverse = Friends(user_id=friend_id, friend_id=user_id, user_info_id=friend_info_id)
-        print(friendship_reverse)
+
         db.session.add(friendship)
         db.session.add(friendship_reverse)
         db.session.commit()
 
-    def delete_friend(self, user_id, friend_id):
+    def delete_friendship(self, user_id, friend_id):
         friendship = Friends.query.filter(Friends.user_id.in_([user_id, friend_id]),
                                           Friends.friend_id.in_([friend_id, user_id])).all()
         print(friendship)
@@ -79,6 +92,10 @@ class FriendshipManager():
             return True
         else:
             return False
+
+    def get_all_friends(self, user_id):
+        friends = Friends.query.filter_by(user_id=user_id).all()
+        return friends
 
     def get_friend_status(self, user1_id, user2_id):
         if Friends.query.filter_by(user_id=user1_id, friend_id=user2_id).first():
@@ -99,3 +116,4 @@ class Friends(db.Model):
     created_time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     objects = FriendshipManager()
+

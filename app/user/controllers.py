@@ -40,7 +40,6 @@ def edit_profile():
     resp = Response()
     description = request.form.get('description')
     name = request.form.get('username')
-    print(name, description)
     try:
         current_user.user_info[0].edit_user_profile(name, description)
         resp.data = json.dumps({"url-redirect": url_for('.profile')})
@@ -74,6 +73,8 @@ def connect():
     room = current_user.name
     join_room(room)
     #notifications = UserNotifications.get_notifications(current_user.user_info.id)
+    #friend_list = Friends.objects.get_all_friends(current_user.id)
+
     #emit('friend_notification', )
 
 @socketio.on('message')
@@ -95,6 +96,8 @@ def cancel_friendship_request(name):
     to_user = Users.get_user_by_name(name)
     friendship_request = FriendshipRequest.get_request(from_user=current_user.id, to_user=to_user.id)
     friendship_request.cansel()
+    resp = {"name": current_user.name, "info_status": "cansel"}
+    emit('update_friendship_info', resp, to=to_user.name)
     emit('friendship_request_response', "cancel_friendship_request", to=current_user.name)
 
 
@@ -123,7 +126,7 @@ def resp_friendship_request(data):
 @socketio.on('delete_friendship')
 def delete_friendship(name):
     friend = Users.get_user_by_name(name)
-    Friends.objects.delete_friend(user_id=current_user.id, friend_id=friend.id)
+    Friends.objects.delete_friendship(user_id=current_user.id, friend_id=friend.id)
     resp = {"name": current_user.name, "info_status": "delete"}
     emit('update_friendship_info', resp, to=name)
     emit('friendship_request_response', "delete_friendship", to=current_user.name)
