@@ -15,6 +15,7 @@ from app import socketio
 from app.authentication.models import Users
 from .friend_models import Friends, FriendshipRequest
 from .user_models import UserInfo, UserNotifications
+from .utils import create_friends_list
 
 
 user = Blueprint('user', __name__, template_folder='templates/user',
@@ -32,7 +33,9 @@ def index():
 def profile():
     name = current_user.name
     description = current_user.user_info[0].profile_description
-    return render_template("profile.html", name=name, description=description)
+    friends_list = create_friends_list(current_user.id)
+
+    return render_template("profile.html", name=name, description=description, friends_list=friends_list)
 
 @user.route('/edit_profile', methods=['POST'])
 @login_required
@@ -54,13 +57,14 @@ def edit_profile():
 def other_profile(name):
     user = Users.get_user_by_name(name)
     friend_status = Friends.objects.get_friend_status(current_user.id, user.id)
-
     if name==current_user.name:
         return redirect(url_for(".profile"))
 
     if user:
         description = user.user_info[0].profile_description
-        return render_template("other_profile.html", name=name, description=description, friend_status=friend_status)
+        friends_list = create_friends_list(user.id)
+        return render_template("other_profile.html", name=name, description=description, friend_status=friend_status,
+                               friends_list=friends_list)
     else:
         return redirect(url_for(".index"))
 
