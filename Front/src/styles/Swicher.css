@@ -1,0 +1,53 @@
+.login-swich {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+.login-swich .login-swich-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.login-swich .login-swich-login .login-swich-login-button {
+    background: none;
+    font-size: 26px;
+    font-weight: 600;
+    color: #e39401;
+    transition: all 0.5s ease 0s;
+  }
+  
+  @media (max-width: 550px) {
+.login-swich .login-swich-login .login-swich-login-button {
+      font-size: 22px;
+    }
+  }
+  
+.login-swich .login-swich-login .login-swich-login-button:hover {
+    color: #faae21;
+  }
+  
+.login-swich .login-swich-registration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.login-swich .login-swich-registration .login-swich-registration-button {
+    background: none;
+    font-size: 24px;
+    color: #e39401;
+    font-weight: 600;
+    transition: all 0.5s ease 0s;
+  }
+  
+  @media (max-width: 550px) {
+.login-swich .login-swich-registration .login-swich-registration-button {
+      font-size: 20px;
+    }
+  }
+  
+.login-swich .login-swich-registration .login-swich-registration-button:hover {
+    color: #faae21;
+  }

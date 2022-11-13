@@ -1,0 +1,245 @@
+.login-form.hidden {
+    display: none;
+  }
+  
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+.login-form .login-form-nick.active::before {
+    width: 365px;
+    height: 45px;
+  }
+  
+  @media (max-width: 1440px) {
+.login-form .login-form-nick.active::before {
+      width: 320px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-nick.active::before {
+      width: 250px;
+    }
+  }
+  
+.login-form .login-form-password.active::before {
+    width: 365px;
+    height: 45px;
+  }
+  
+  @media (max-width: 1440px) {
+.login-form .login-form-password.active::before {
+      width: 320px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-password.active::before {
+      width: 250px;
+    }
+  }
+  
+.login-form .login-form-nick {
+    margin-top: 50px;
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-nick {
+      margin-top: 40px;
+    }
+  }
+  
+.login-form .login-form-nick::before {
+    height: 45px;
+  }
+  
+.login-form .login-form-nick input {
+    height: 45px;
+    width: 365px;
+    background: none;
+    border-bottom: 1px solid #e39401;
+    font-size: 18px;
+    color: #e39401;
+  }
+  
+.login-form .login-form-nick input::placeholder {
+    color: #e39401;
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 1440px) {
+.login-form .login-form-nick input {
+      width: 320px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-nick input {
+      width: 250px;
+      font-size: 14px;
+    }
+  }
+  
+.login-form .login-form-password {
+    margin-top: 30px;
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-password {
+      margin-top: 20px;
+    }
+  }
+  
+.login-form .login-form-password input {
+    height: 45px;
+    width: 365px;
+    background: none;
+    border-bottom: 1px solid #e39401;
+    font-size: 18px;
+    color: #e39401;
+  }
+  
+.login-form .login-form-password input::placeholder {
+    color: #e39401;
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 1440px) {
+.login-form .login-form-password input {
+      width: 320px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-password input {
+      width: 250px;
+      font-size: 14px;
+    }
+  }
+  
+.login-form .login-form-under {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 30px;
+    width: 365px;
+    height: 45px;
+  }
+  
+  @media (max-width: 1440px) {
+.login-form .login-form-under {
+      width: 320px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-under {
+      width: 250px;
+      margin-top: 20px;
+    }
+  }
+  
+.login-form .login-form-under .login-form-under-remember {
+    margin-top: 5px;
+    margin-right: 0px;
+  }
+  
+.login-form .login-form-under .login-form-under-remember input {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 0;
+    transform: translate(10.5px);
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-under .login-form-under-remember input {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  
+.login-form .login-form-under .login-form-under-remember .remember-checkbox {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    transform: translate(0px);
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-under .login-form-under-remember .remember-checkbox {
+      transform: translate(0, 3px);
+    }
+  }
+  
+.login-form .login-form-under .login-form-under-remember .remember-checkbox + span {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    color: #e39401;
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-under .login-form-under-remember .remember-checkbox + span {
+      font-size: 12px;
+      transform: translate(0, 3px);
+    }
+  }
+  
+.login-form .login-form-under .login-form-under-remember .remember-checkbox + span::before {
+    content: '';
+    pointer-events: none;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border: 1px solid #e39401;
+    border-radius: 0.25em;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50% 50%;
+    transition: all 0.5s ease 0s;
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-under .login-form-under-remember .remember-checkbox + span::before {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  
+.login-form .login-form-under .login-form-under-remember .remember-checkbox + span::before:hover {
+    border: 1px solid #ffad15;
+  }
+  
+.login-form .login-form-under .login-form-under-remember .remember-checkbox:checked + span::before {
+    background-color: #e39401;
+  }
+  
+.login-form .login-form-under .login-form-under-submit input {
+    cursor: pointer;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    border-radius: 10px;
+    background-color: #e39401;
+    width: 150px;
+    height: 30px;
+    font-size: 20px;
+    transition: all 0.5s ease 0s;
+  }
+  
+  @media (max-width: 550px) {
+.login-form .login-form-under .login-form-under-submit input {
+      width: 100px;
+      font-size: 14px;
+    }
+  }
+  
+.login-form .login-form-under .login-form-under-submit input:hover {
+    background-color: #faae21;
+  }

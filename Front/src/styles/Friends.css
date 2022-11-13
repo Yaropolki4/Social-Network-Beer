@@ -1,0 +1,10 @@
+
+.nav-friends {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+}
+.nav.fr_open .nav-friends{
+    display: flex;
+}
+

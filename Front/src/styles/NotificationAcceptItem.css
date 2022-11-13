@@ -1,0 +1,15 @@
+.nav-notifications-item-friend{
+    display: flex;
+    transform: translate(0px);
+    transition: all 1s ease 0s;
+  }
+  .nav-notifications-item-friend-ava{
+      width: 60px;
+  }
+  .nav-notifications-item-friend-online{
+      margin-top: 7px;
+      font-size: 16px;
+  }
+  .nav-notifications-item-friend-close{
+      width: 60px;
+  }

@@ -1,0 +1,16 @@
+
+  
+.profile-main-ava-remove {
+    margin-top: 15px;
+    width: 100%;
+    border: 1px solid #e39401;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+.profile-main-ava-remove .profile-main-ava-remove-button {
+    width: 100%;
+    background: none;
+    height: 30px;
+    color: orange;
+  }

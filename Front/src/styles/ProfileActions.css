@@ -1,0 +1,87 @@
+.profile-main-ava {
+    border-bottom: 1px solid rgba(227, 148, 1, 0.5);
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+.profile-main-ava .profile-main-ava-image {
+    width: 300px;
+    border: 1px solid #e39401;
+    border-radius: 50%;
+  }
+  
+.profile-main-ava .profile-main-ava-image img {
+    border-radius: 50%;
+  }
+  
+  @media (max-width: 1240px) {
+    .profile-main-ava .profile-main-ava-image {
+      width: 200px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .profile-main-ava .profile-main-ava-image {
+      width: 200px;
+    }
+  }
+  
+  .profile-main-ava .profile-main-ava-nickname {
+    width: 100%;
+    display: flex;
+    align-self: start;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 20px 0 0 0px;
+  }
+  
+  @media (max-width: 1024px) {
+    .profile-main-ava .profile-main-ava-nickname {
+      font-size: 15px;
+    }
+  }
+  
+  .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-nick {
+    display: inline-block;
+  }
+  
+  .profile-main-ava-nickname .profile-main-ava-nickname-esc {
+    display: inline-block;
+    border: 1px solid rgba(227, 148, 1, 0.7);
+    color: rgba(227, 148, 1, 0.7);
+    padding: 3px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s ease 0s;
+  }
+  
+  .profile-main-ava .profile-main-ava-nickname .profile-main-ava-nickname-esc:hover {
+    border: 1px solid #e39401;
+    color: #e39401;
+  }
+  
+  
+  .profile-main-ava .profile-main-ava-edit-but {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .wrapper .container .profile-main .profile-main-ava .profile-main-ava-edit-but .profile-main-ava-edit-button {
+    width: 100%;
+    background: none;
+    height: 30px;
+    color: orange;
+    border: 1px solid #e39401;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  

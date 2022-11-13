@@ -1,0 +1,17 @@
+
+.profile-main-ava-cancel {
+    display: flex;
+    margin-top: 15px;
+    width: 100%;
+    border: 1px solid #e39401;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+.profile-main-ava-cancel .profile-main-ava-cancel-button {
+    border-right: 1px solid #e39401;
+    width: 100%;
+    background: none;
+    height: 30px;
+    color: orange;
+  }

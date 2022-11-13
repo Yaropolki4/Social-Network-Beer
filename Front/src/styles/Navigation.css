@@ -1,0 +1,15 @@
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    width: 110px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e39401;
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
+  }
+  
+.nav-item .nav-item-title {
+    margin-top: 10px;
+  }

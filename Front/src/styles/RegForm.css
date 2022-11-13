@@ -1,0 +1,97 @@
+.regist-form.hidden {
+    display: none;
+  }
+  
+.regist-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+.regist-form .regist-form-input {
+    width: 360px;
+    height: 30px;
+    background: none;
+    border-bottom: 1px solid #e39401;
+    color: #e39401;
+    font-size: 16px;
+  }
+  
+.regist-form .regist-form-input::placeholder {
+    color: #e39401;
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 1440px) {
+.regist-form .regist-form-input {
+      width: 315px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.regist-form .regist-form-input {
+      width: 250px;
+      font-size: 14px;
+    }
+  }
+  
+.regist-form .regist-form-nick input {
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 550px) {
+.regist-form .regist-form-nick input {
+      margin-top: 15px;
+    }
+  }
+  
+.regist-form .regist-form-pass input {
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 550px) {
+.regist-form .regist-form-pass input {
+      margin-top: 15px;
+    }
+  }
+  
+.regist-form .regist-form-repass input {
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 550px) {
+.regist-form .regist-form-repass input {
+      margin-top: 15px;
+    }
+  }
+  
+.regist-form .regist-form-submit input {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 25px;
+    width: 360px;
+    height: 30px;
+    background: #e39401;
+    border-radius: 10px;
+    transition: all 0.5s ease 0s;
+  }
+  
+  @media (max-width: 1440px) {
+.regist-form .regist-form-submit input {
+      width: 315px;
+    }
+  }
+  
+  @media (max-width: 550px) {
+.regist-form .regist-form-submit input {
+      width: 250px;
+      font-size: 16px;
+      margin-top: 18px;
+    }
+  }
+  
+.regist-form .regist-form-submit input:hover {
+    background-color: #fca90f;
+  }

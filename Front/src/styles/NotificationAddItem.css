@@ -1,0 +1,65 @@
+.nav-notifications-item {
+    transition: all 1s ease 0s;
+    display: grid;
+    color: white;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #e39401;
+    grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr 10px;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 5px;
+  }
+  
+.nav-notifications-item .nav-notifications-item-ava {
+    width: 60px;
+    grid-column: 1 /2;
+    grid-row: 1/4;
+  }
+  
+.nav-notifications-item .nav-notifications-item-nick {
+    align-items: center;
+    margin-left: 0px;
+    display: flex;
+    font-size: 14px;
+    grid-column: 5 / 7;
+    grid-row: 1/2;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    background-color: orange;
+    color: black;
+    border-radius: 10px;
+    padding: 0 5px;
+  }
+  
+ .nav-notifications-item .nav-notifications-item-online {
+    grid-column: 2 / 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 1/2;
+  }
+  
+.nav-notifications-item .nav-notifications-item-accept {
+    grid-row: 2/4;
+    grid-column: 2 / 5;
+    margin-left: 30px;
+  }
+  
+.nav-notifications-item .nav-notifications-item-accept button {
+    background-color: orange;
+    padding: 5px 15px;
+    border-radius: 10px;
+  }
+  
+.nav-notifications-item .nav-notifications-item-reject {
+    grid-row: 2/4;
+    grid-column: 5 / 7;
+  }
+  
+.nav-notifications-item .nav-notifications-item-reject button {
+    background-color: orange;
+    padding: 5px 15px;
+    border-radius: 10px;
+  }

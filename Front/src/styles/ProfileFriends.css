@@ -1,0 +1,21 @@
+.profile-main-achievements {
+    margin-top: 40px;
+  }
+  
+  @media (max-width: 1024px) {
+    .profile-main-achievements {
+      margin-top: 20px;
+    }
+  }
+  
+.profile-main-achievements .profile-main-achievements-header {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+.profile-main-achievements .profile-main-achievements-icons {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-row-gap: 20px;
+  }

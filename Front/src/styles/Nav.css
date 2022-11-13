@@ -1,0 +1,27 @@
+.nav{
+    transition: all 1s ease 0s;
+    border-right: 1px solid orange;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 190px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(3px);
+    position: absolute;
+}
+
+.nav.visible {
+    display: block;
+    width: 350px;
+  }
+  
+.nav.visible .nav-item {
+    display: none;
+}
+

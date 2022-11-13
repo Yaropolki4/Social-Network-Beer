@@ -1,0 +1,58 @@
+
+body {
+  font-family: 'Montserrat';
+  color: orange;
+}
+
+.wrapper::before {
+    content: '';
+    filter: blur(3px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    background-image: url("../background.png");
+    background-size: cover;
+    background-position: right;
+  }
+
+  .wrapper .container .profile-main {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrapper .container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: 0 30px;
+    width: 1155px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 1500px) {
+    .wrapper .container {
+      width: 949px;
+    }
+  }
+  
+  @media (max-width: 1240px) {
+    .wrapper .container {
+      width: 749px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .wrapper .container {
+      width: 649px;
+    }
+  }
+  
+  @media (max-width: 889px) {
+    .wrapper .container {
+      width: 599px;
+    }
+  }

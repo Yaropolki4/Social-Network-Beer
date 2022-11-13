@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.div-for-seek {
+  display: none;
+}
+
+body {
+  font-family: 'Montserrat';
+}
+
+.underline.active::before {
+  position: absolute;
+  content: '';
+  border-bottom: 1px solid #fdae1b;
+  transition: all 2s ease 0s;
+}
+
+.underline::before {
+  position: absolute;
+  content: '';
+  width: 0px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+.wrapper .warning{
+  color: black;
+  font-size: 18px;
+  background-color: #fdae1b;
+  border: 2px solid red;
+  width: 365px;
+  height: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper .warning.hidden{
+  opacity: 0;
+}
+
+@media (max-width: 1440px) {
+  .wrapper .warning{
+    width: 320px;
+  }
+}
+@media (max-width: 550px) {
+  .wrapper .warning{
+    width: 255px;
+    height: 20px;
+    font-size: 14px;
+  }
+}
+
+.wrapper::before {
+  content: '';
+  filter: blur(5px);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background-image: url('../background.png');
+  background-size: cover;
+  background-position: right;
+}
+
+.wrapper .logo {
+  top: 50px;
+  left: 50px;
+  position: absolute;
+  width: 100px;
+}
+
+@media (max-width: 1024px) {
+  .wrapper .logo {
+    display: none;
+  }
+}
+
+.wrapper .login {
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  width: 500px;
+  border-radius: 20px;
+}
+
+@media (max-width: 1440px) {
+  .wrapper .login {
+    height: 250px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 550px) {
+  .wrapper .login {
+    width: 300px;
+  }
+}
+
+
+
+
+

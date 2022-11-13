@@ -1,0 +1,30 @@
+.nav-friends-item {
+    display: grid;
+    color: black;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #e39401;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 2fr 1fr;
+  }
+  
+.nav-friends-item .nav-friends-item-ava {
+    width: 60px;
+    grid-column: 1 /2;
+    grid-row: 1/3;
+  }
+  
+.nav-friends-item .nav-friends-item-nick {
+    align-items: center;
+    margin-left: 50px;
+    display: flex;
+    font-size: 30px;
+    grid-column: 2 / 3;
+  }
+  
+.nav-friends-item .nav-friends-item-online {
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
