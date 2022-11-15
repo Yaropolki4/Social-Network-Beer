@@ -5,42 +5,10 @@ import Nav from './components/Body/NAV/Nav';
 import {AuthContext} from './context/index';
 import AppRouter from './components/AppRouter';
 import { useSelector, useDispatch } from 'react-redux';
-import socket from './socket';
+import socket from './socket'
 
 
-
-  function App(){
-    const dispatch = useDispatch();
-
-    socket.on('update_friendship_info', data => {
-
-      if(data['info_status'] == 'friend_notification'){
-          console.log(1);
-          const notificationItem = {nickName: data.name, type: "friend_request", id: `${data.name}-friend_request`};
-          dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
-          dispatch({type: "received-friend-notification"});
-      }
-      else if(data['info_status'] == 'friends'){
-          console.log(1);
-          const notificationItem = {nickName: data.name, type: "accept_friend_request", id: `${data.name}-accept_friend_request`};
-          dispatch({type: "to-add-friend"});
-          dispatch({type: "ADD_NOTIFICATION", payload: notificationItem})
-      }
-      else if(data['info_status'] == 'delete'){
-          console.log(1);
-          dispatch({type: "DELETE_FRIEND", payload: data.name});
-      }
-      else if(data['info_status'] == 'reject'){
-          console.log(1);
-          dispatch({type: 'to-cancel-request'});
-      }
-      else if(data['info_status'] == 'cancel'){
-          console.log(1);
-          dispatch({type: 'to-cancel-request'});
-          dispatch({type: 'DELETE_NOTIFICATION', payload: `${data.name}-friend_request`})
-      }
-  })
-
+  const App = React.memo(function App(){
 
 
 
@@ -70,7 +38,7 @@ import socket from './socket';
       </BrowserRouter>
     </AuthContext.Provider>
   )
-}
+})
 
 
 export default App;

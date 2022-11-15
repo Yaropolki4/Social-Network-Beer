@@ -1,4 +1,4 @@
-import React, {useMemo, useContext} from "react";
+import React, {useMemo, useContext, useEffect} from "react";
 import Friends from './Friends';
 import Navigation from './Navigation';
 import '../../../styles/Nav.css';
@@ -6,13 +6,46 @@ import Notifications from "./Notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthContext } from "../../../context";
 import {useNavigate} from 'react-router-dom';
+import socket from "../../../socket";
 
 const Nav = ({stateFriendsIsOpen, stateNotificationsIsOpen}) => {
+
+
+    
+    socket.connect();
     const {isAuth, setIsAuth}= useContext(AuthContext);
-
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+
+
+
+    console.log(2);
+
+// socket.once('update_friendship_info', data => {
+
+//   if(data['info_status'] == 'received-friend-notification'){
+//     console.log('update');
+//       const notificationItem = {nickName: data.name, type: "friend_request", id: `${data.name}-friend_request`};
+//       dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
+//       dispatch({type: "received-friend-notification"});
+//   }
+//   else if(data['info_status'] == 'friend-require-was-accepted'){
+//       const notificationItem = {nickName: data.name, type: "accept_friend_request", id: `${data.name}-accept_friend_request`};
+//       dispatch({type: "friend"});
+//       dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
+//   }
+//   else if(data['info_status'] == 'friend-deleted-you'){
+//       dispatch({type: "DELETE_FRIEND", payload: data.name});
+//   }
+//   else if(data['info_status'] == 'friend-require-was-rejected'){
+//       dispatch({type: 'to-cancel-request'});
+//   }
+//   else if(data['info_status'] == 'friend-require-was-canceled'){
+//       dispatch({type: 'to-cancel-request'});
+//       dispatch({type: 'DELETE_NOTIFICATION', payload: `${data.name}-friend_request`})
+//   }
+// })
+
 
     
     async function GetInfo(){
@@ -27,7 +60,7 @@ const Nav = ({stateFriendsIsOpen, stateNotificationsIsOpen}) => {
             friends.push({nickName: item, online: true, id: item});
           }
         dispatch({type: 'MAKE_FRIEND_LIST', payload: friends});
-        //navigate('/profile');
+        socket.emit('connection', {current_user_name: result.name});
       }
     
     

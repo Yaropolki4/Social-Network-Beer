@@ -5,6 +5,7 @@ import socket from '../../../socket.js';
 
 function AnswerFriendButton({otherUserInfo}) {
 
+
   let current_user_name = useSelector(state => state.info.nickName)
 
   const dispatch = useDispatch()

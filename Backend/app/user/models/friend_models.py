@@ -7,7 +7,7 @@ from app import db, login
 
 class FriendshipRequest(db.Model):
     """
-    Запроса в друзья
+    Запрос в друзья
     from_user и to_user это id соответствующих юзеров
     """
 
@@ -32,7 +32,6 @@ class FriendshipRequest(db.Model):
         req_1 = FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first()
         req_2 = FriendshipRequest.query.filter_by(from_user=to_user, to_user=from_user).first()
         if req_1 or req_2:
-            # Если запрос на дружбу существует
             return False
         else:
             friendship_request = FriendshipRequest(from_user=from_user, to_user=to_user)
@@ -41,7 +40,7 @@ class FriendshipRequest(db.Model):
             return True
 
     @staticmethod
-    def get_request(from_user, to_user):
+    def get_request(from_user: int, to_user: int):
         return FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first()
 
     def accept(self, user_info_id: int, friend_info_id: int):
@@ -84,7 +83,6 @@ class FriendshipManager():
     def delete_friendship(self, user_id, friend_id):
         friendship = Friends.query.filter(Friends.user_id.in_([user_id, friend_id]),
                                           Friends.friend_id.in_([friend_id, user_id])).all()
-        print(friendship)
         if friendship:
             db.session.delete(friendship[0])
             db.session.delete(friendship[1])

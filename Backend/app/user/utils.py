@@ -1,4 +1,4 @@
-from .friend_models import Friends
+from app.user.models.friend_models import Friends
 from app.authentication.models import Users
 
 def create_friends_list(user_id):

@@ -1,16 +1,15 @@
 import json
 
 from flask import (
-    Blueprint, render_template,
-    request, redirect,
-    abort, Response,
+    Blueprint, request, redirect,
+    Response,
     url_for,
 )
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, current_user
 from marshmallow import  ValidationError
 
 from .models import Users
-from app.user.user_models import UserInfo
+from app.user.models.user_models import UserInfo
 
 authentication = Blueprint('authentication', __name__, template_folder='templates/authentication',
                            static_folder='static/authentication')
@@ -70,8 +69,9 @@ def auth():
 
 @authentication.route('/logout', methods=["POST", "GET"])
 def logout():
+    resp = Response()
     logout_user()
-    return redirect(url_for('user.index'))
+    return resp
 
 ########################
 

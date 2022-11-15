@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 function UserProfilePage() {
 
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
     const url = new URL(window.location.href);

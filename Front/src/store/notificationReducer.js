@@ -1,9 +1,5 @@
 const defaultState = {
-    notifications: [
-        {nickName: 'бухарик', type: 'friend_request', id: 1,},
-        {nickName: 'пивун', type: 'accept_friend_request', id: 2},
-        {nickName: 'водочник', type: 'friend_request', id: 3},
-    ],
+    notifications: [],
 }
 
 export const notificationReducer = (state = defaultState, action) => {

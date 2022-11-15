@@ -33,7 +33,7 @@ class UserInfo(db.Model):
 
         self.profile_description = description
 
-        if not Users.query.filter_by(name=name).first():
+        if not Users.get_user_by_name(name):
             self.user.name = name
             db.session.commit()
         else:
