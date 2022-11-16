@@ -19,32 +19,41 @@ const Nav = ({stateFriendsIsOpen, stateNotificationsIsOpen}) => {
 
 
 
-    console.log(2);
+  useEffect(()=> {
+    const receivedNotification = (data) => {
+      if(data['info_status'] == 'received-friend-notification'){
+          const notificationItem = {nickName: data.name, type: "friend_request", id: `${data.name}-friend_request`};
+          dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
+          dispatch({type: "received-friend-notification"});
+      }
+      else if(data['info_status'] == 'friend-require-was-accepted'){
+          const notificationItem = {nickName: data.name, type: "accept_friend_request", id: `${data.name}-accept_friend_request`};
+          const friendItem = {
+            nickName: data.name,
+            online: true,
+            id: data.name,
+          }
+          dispatch({type: "received-add-friend"});
+          dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
+          dispatch({type: 'ADD_FRIEND', payload: friendItem})
+      }
+      else if(data['info_status'] == 'friend-deleted-you'){
+          dispatch({type: "DELETE_FRIEND", payload: data.name});
+          dispatch({type: 'to-delete-friend'});
+          dispatch({type: 'DELETE_NOTIFICATION', payload: `${data.name}-accept_friend_request`})
+      }
+      else if(data['info_status'] == 'friend-require-was-rejected'){
+          dispatch({type: 'to-cancel-request'});
+      }
+      else if(data['info_status'] == 'friend-require-was-canceled'){
+          dispatch({type: 'to-cancel-request'});
+          dispatch({type: 'DELETE_NOTIFICATION', payload: `${data.name}-friend_request`})
+      }
+    }
+    socket.on('update_friendship_info', receivedNotification);
+    return () => socket.off('update_friendship_info', receivedNotification);
+  })
 
-// socket.once('update_friendship_info', data => {
-
-//   if(data['info_status'] == 'received-friend-notification'){
-//     console.log('update');
-//       const notificationItem = {nickName: data.name, type: "friend_request", id: `${data.name}-friend_request`};
-//       dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
-//       dispatch({type: "received-friend-notification"});
-//   }
-//   else if(data['info_status'] == 'friend-require-was-accepted'){
-//       const notificationItem = {nickName: data.name, type: "accept_friend_request", id: `${data.name}-accept_friend_request`};
-//       dispatch({type: "friend"});
-//       dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
-//   }
-//   else if(data['info_status'] == 'friend-deleted-you'){
-//       dispatch({type: "DELETE_FRIEND", payload: data.name});
-//   }
-//   else if(data['info_status'] == 'friend-require-was-rejected'){
-//       dispatch({type: 'to-cancel-request'});
-//   }
-//   else if(data['info_status'] == 'friend-require-was-canceled'){
-//       dispatch({type: 'to-cancel-request'});
-//       dispatch({type: 'DELETE_NOTIFICATION', payload: `${data.name}-friend_request`})
-//   }
-// })
 
 
     
@@ -79,7 +88,7 @@ const Nav = ({stateFriendsIsOpen, stateNotificationsIsOpen}) => {
     return (
         <div onClick = {(e)=>{e.stopPropagation()}} className = {navClasses.join(' ')}>
             <Navigation stateFriendsIsOpen = {stateFriendsIsOpen} stateNotificationsIsOpen = {stateNotificationsIsOpen}/>
-            <Friends/>
+            <Friends stateFriendsIsOpen = {stateFriendsIsOpen}/>
             <Notifications/>
         </div>
     )

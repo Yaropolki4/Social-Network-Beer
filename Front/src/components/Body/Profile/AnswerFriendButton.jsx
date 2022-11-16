@@ -14,7 +14,7 @@ function AnswerFriendButton({otherUserInfo}) {
     let resp = true;
     dispatch({type: 'loading'});
     socket.emit('to-answer',{other_user_name: otherUserInfo.nickName, current_user_name: current_user_name, resp: resp});
-    socket.on('to-answer', data => {
+    socket.once('to-answer', data => {
       setTimeout(()=>{
         const friendItem = {
           nickName: otherUserInfo.nickName,
@@ -23,7 +23,7 @@ function AnswerFriendButton({otherUserInfo}) {
         }
         dispatch({type: 'to-answer-accept'});
         dispatch({type: 'ADD_FRIEND', payload: friendItem});
-        dispatch({type: 'DELETE_NOTIFICATION', payload: `${otherUserInfo.name}-friend_request`});
+        dispatch({type: 'DELETE_NOTIFICATION', payload: `${otherUserInfo.nickName}-friend_request`});
       }, 500);
     });
   }
@@ -32,10 +32,10 @@ function AnswerFriendButton({otherUserInfo}) {
     let resp = false;
     dispatch({type: 'loading'});
     socket.emit('to-answer',{other_user_name: otherUserInfo.nickName, current_user_name: current_user_name, resp: resp});
-    socket.on('to-answer', data => {
+    socket.once('to-answer', data => {
       setTimeout(()=>{
         dispatch({type: 'to-answer-reject'});
-        dispatch({type: 'DELETE_NOTIFICATION', payload: `${otherUserInfo.name}-friend_request`});
+        dispatch({type: 'DELETE_NOTIFICATION', payload: `${otherUserInfo.nickName}-friend_request`});
       }, 500);
     });
   }

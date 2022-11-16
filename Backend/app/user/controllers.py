@@ -33,7 +33,7 @@ def exist_user():
     resp = Response()
     data = request.json
     other_user = Users.get_user_by_name(data['other_user_name'])
-    if user:
+    if other_user:
         friends_status = Friends.objects.get_friend_status(other_user.id, current_user.id)
         name = other_user.name
         description = other_user.user_info[0].profile_description

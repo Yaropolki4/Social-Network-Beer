@@ -1,7 +1,7 @@
 
 
 const defaultState = {
-    friendStatus: 'waiting-answer',
+    friendStatus: 'not-friend',
   }
 
 

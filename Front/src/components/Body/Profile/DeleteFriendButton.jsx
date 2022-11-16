@@ -12,10 +12,11 @@ function DeleteFriendButton({otherUserInfo}) {
   const deleteOldFriend = () => {
     dispatch({type: 'loading'})
     socket.emit('to-delete-friend', {other_user_name: otherUserInfo.nickName, current_user_name: current_user_name});
-    socket.on('to-delete-friend', data => {
+    socket.once('to-delete-friend', data => {
       setTimeout(()=>{
         dispatch({type: 'to-delete-friend'});
         dispatch({type: 'DELETE_FRIEND', payload: otherUserInfo.nickName});
+        dispatch({type: 'DELETE_NOTIFICATION', payload: `${otherUserInfo.nickName}-accept_friend_request`})
       }, 500);
     })
   }

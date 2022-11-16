@@ -13,7 +13,7 @@ function CancelFriendButton({otherUserInfo}) {
   const cancelReject = () => {
     dispatch({type: 'loading'});
       socket.emit('to-cancel-request',{other_user_name: otherUserInfo.nickName, current_user_name: current_user_name});
-      socket.on('to-cancel-request', data => {
+      socket.once('to-cancel-request', data => {
       setTimeout(()=>{
         dispatch({type: 'to-cancel-request'});
       }, 500);

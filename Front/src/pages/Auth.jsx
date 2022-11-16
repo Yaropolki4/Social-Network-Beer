@@ -8,14 +8,7 @@ import Swicher from '../components/Body/Auth/Swicher';
 
 function Auth() {
 
-    const [nickName, setNickName] = useState('');
-    const [password, setPassword] = useState('');
-    const [regNickName, setRegNickName] = useState('');
-    const [regPassword, setRegPassword] = useState('');
-    const [repRegPassword, setRepRegPassword] = useState('');
-    const [email, setEmail] = useState('');
     const [logRegWindow, setLogRegWindow] = useState(false);
-    const [checkbox, setCheckbox] = useState(false);
 
     let logClasses = ['login-form'];
     let regClasses = ['regist-form'];
@@ -33,8 +26,8 @@ function Auth() {
         </div> 
         <div className="login">
             <Swicher logRegWindow = {logRegWindow} setLogRegWindow = {setLogRegWindow}/>
-            <LoginForm logClasses = {logClasses} nickName = {nickName} setNickName = {setNickName} password = {password} setPassword = {setPassword} checkbox = {checkbox} setCheckbox = {setCheckbox}/>
-            <RegForm regClasses = {regClasses} email = {email} setEmail = {setEmail} regNickName = {regNickName} setRegNickName = {setRegNickName} regPassword = {regPassword} setRegPassword = {setRegPassword} repRegPassword = {repRegPassword} setRepRegPassword = {setRepRegPassword}/>
+            <LoginForm logClasses = {logClasses}/>
+            <RegForm regClasses = {regClasses}/>
         </div>
     </div>
   )

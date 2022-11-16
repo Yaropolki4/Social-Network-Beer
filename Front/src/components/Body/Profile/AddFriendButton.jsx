@@ -2,22 +2,12 @@ import '../../../styles/AddFriendButton.css' ;
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import socket from '../../../socket.js';
+import { useEffect } from 'react';
 
 
 
 
 function AddFriendButton({otherUserInfo}) {
-
-
-
-    socket.once('update_friendship_info', data => {
-        if(data['info_status'] == 'received-friend-notification'){
-          console.log('update');
-            const notificationItem = {nickName: data.name, type: "friend_request", id: `${data.name}-friend_request`};
-            dispatch({type: "ADD_NOTIFICATION", payload: notificationItem});
-            dispatch({type: "received-friend-notification"});
-        }
-    });
 
 
   let current_user_name = useSelector(state => state.info.nickName)

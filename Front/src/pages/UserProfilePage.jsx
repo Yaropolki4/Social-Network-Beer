@@ -16,6 +16,8 @@ function UserProfilePage() {
     let [nickName, setNickName] = useState('');
     let [userStatus, setUserStatus] = useState('');
 
+    let otherFriends_ = [];
+
     async function validateNick(){
         let response = await fetch('/exist', {
           method: 'POST',
@@ -32,22 +34,21 @@ function UserProfilePage() {
           setNickName(result.name);
           setUserStatus(result.description);
           let otherFriendsList = result.friends_list;
-          console.log(result.friends_status);
           dispatch({type: 'change-status', payload: result.friends_status});
-          let otherFriends_ = [];
           for (let item of otherFriendsList){
             otherFriends_.push({nickName: item, online: true, id: item});
           }
-          setOtherFriends(otherFriends);
+          //setOtherFriends(otherFriends_);
         }
     }
-
-
 
     useEffect(() => {
       validateNick();
     })
+    
     const {id} = useParams();
+    const name = useSelector(state => state.info.nickName);
+    if(id == name) navigate('/profile');
     const otherUserInfo = {nickName: nickName, status: userStatus};
     const isMyProfile = false;
 
@@ -63,7 +64,6 @@ function UserProfilePage() {
       <Profile isMyProfile = {isMyProfile} otherFriends = {otherFriends} otherUserInfo = {otherUserInfo}/>
     </div>
   )
-
 }
 
 
