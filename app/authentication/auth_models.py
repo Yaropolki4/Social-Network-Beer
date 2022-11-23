@@ -17,6 +17,12 @@ class Users(UserMixin, db.Model):
     user_info = db.relationship('UserInfo',
                             backref='user')
 
+    user_notification = db.relationship('UserNotifications',
+                            backref='user')
+
+    friends = db.relationship('Friends',
+                              backref='user')
+
     def __init__(self, name, email, hash_password):
         self.name = name
         self.email = email
@@ -59,6 +65,11 @@ class Users(UserMixin, db.Model):
     @staticmethod
     def get_user_by_name(name):
         return Users.query.filter_by(name=name).first()
+
+    @staticmethod
+    def get_user_by_id(id):
+        return Users.query.filter_by(id=id).first()
+
 
 @login.user_loader
 def load_user(id):

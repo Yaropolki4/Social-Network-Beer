@@ -1,32 +1,22 @@
 import json
 
 from flask import (
-    Blueprint, render_template,
-    request, Response,
-    abort, redirect,
-    url_for, session,
+    Blueprint, request, Response,
 )
 ###
-from flask_login import login_user, logout_user, login_required, current_user
-from marshmallow import  ValidationError
-from flask_socketio import send, emit, join_room
+from flask_login import login_required, current_user
+from flask_socketio import emit, join_room
 
-from app import socketio
-from app.authentication.models import Users
-from .friend_models import Friends, FriendshipRequest
-from .user_models import UserInfo, UserNotifications
-from .utils import create_friends_list
-
-
-user = Blueprint('user', __name__, template_folder='templates/user',
-                 static_folder='static/user')
+from app.authentication.auth_models import Users
+from app.user.models.user_models import UserNotifications
+from .models.notification_models import AcceptFriendshipNotifications
+from app.user.models.friend_models import Friends
+from .utils import create_friends_list, create_notifications_list
+import app.user.sockets
 
 
-@user.route('/')
-@user.route('/index')
-@login_required
-def index():
-    return render_template('main.html')
+user = Blueprint('user', __name__)
+
 
 @user.route('/profile')
 @login_required
@@ -35,103 +25,39 @@ def profile():
     description = current_user.user_info[0].profile_description
     friends_list = create_friends_list(current_user.id)
 
-    return render_template("profile.html", name=name, description=description, friends_list=friends_list)
+    notifications = UserNotifications.get_all_notifications(current_user.id)
+    notifications_list = create_notifications_list(notifications)
 
-@user.route('/edit_profile', methods=['POST'])
+    resp_dict = {"name": name, "description": description,
+                 "friends_list": friends_list, "notifications": notifications_list}
+    resp = json.dumps(resp_dict)
+    return resp
+
+@user.route('/exist', methods=['POST', 'GET'])
 @login_required
-def edit_profile():
+def exist_user():
     resp = Response()
-    description = request.form.get('description')
-    name = request.form.get('username')
-    try:
-        current_user.user_info[0].edit_user_profile(name, description)
-        resp.data = json.dumps({"url-redirect": url_for('.profile')})
+    data = request.json
+    other_user = Users.get_user_by_name(data['other_user_name'])
+    if other_user:
+        friends_status = Friends.objects.get_friend_status(other_user.id, current_user.id)
+        name = other_user.name
+        description = other_user.user_info[0].profile_description
+        friends_list = create_friends_list(other_user.id)
+        resp_dict = {"name": name, "description": description, "friends_list": friends_list,
+                     "is_exist": True, "friends_status": friends_status}
+        resp.data = json.dumps(resp_dict)
         return resp
-    except ValidationError as err:
-        print(err)
-        resp.data = json.dumps({"error": err.messages})
+    else:
+        resp.data = json.dumps({"is_exist": False})
         return resp
 
-@user.route('/profile/<name>')
+@user.route('/delete/notification/accept', methods=['POST', 'GET'])
 @login_required
-def other_profile(name):
-    user = Users.get_user_by_name(name)
-    friend_status = Friends.objects.get_friend_status(current_user.id, user.id)
-    if name==current_user.name:
-        return redirect(url_for(".profile"))
+def delete_accept_notification():
+    data = request.json
+    other_user = Users.get_user_by_name(data['other_user_name'])
+    AcceptFriendshipNotifications.delete_notification(user_id=current_user.id, from_user_id=other_user)
+    return Response(status=200)
 
-    if user:
-        description = user.user_info[0].profile_description
-        friends_list = create_friends_list(user.id)
-        return render_template("other_profile.html", name=name, description=description, friend_status=friend_status,
-                               friends_list=friends_list)
-    else:
-        return redirect(url_for(".index"))
-
-
-
-"""SOCKET"""
-
-@socketio.on('connect')
-def connect():
-    room = current_user.name
-    join_room(room)
-    #notifications = UserNotifications.get_notifications(current_user.user_info.id)
-    #friend_list = Friends.objects.get_all_friends(current_user.id)
-
-    #emit('friend_notification', )
-
-@socketio.on('message')
-def message(data):
-    #print(f"\n\n{data}\n\n")
-    send(data, broadcast=True)
-
-@socketio.on('friendship_request')
-def friendship_request(name):
-    to_user = Users.get_user_by_name(name)
-    FriendshipRequest.create_friendship_request(from_user=current_user.id, to_user=to_user.id)
-    send_data = current_user.name
-    resp = {"name": current_user.name, "info_status": "friend_notification"}
-    emit('update_friendship_info', resp, to=to_user.name)
-    emit('friendship_request_response', "friendship_request", to=current_user.name)
-
-@socketio.on('cancel_friendship_request')
-def cancel_friendship_request(name):
-    to_user = Users.get_user_by_name(name)
-    friendship_request = FriendshipRequest.get_request(from_user=current_user.id, to_user=to_user.id)
-    friendship_request.cansel()
-    resp = {"name": current_user.name, "info_status": "cansel"}
-    emit('update_friendship_info', resp, to=to_user.name)
-    emit('friendship_request_response', "cancel_friendship_request", to=current_user.name)
-
-
-@socketio.on('resp_friendship_request')
-def resp_friendship_request(data):
-    print(data)
-    from_user = Users.get_user_by_name(data['name'])
-    f_request = FriendshipRequest.get_request(from_user=from_user.id, to_user=current_user.id)
-
-    # ответ, добавить или нет
-    if data['resp']:
-        user_info_id = current_user.user_info[0].id
-        friend_info_id = from_user.user_info[0].id
-        f_request.accept(user_info_id=user_info_id, friend_info_id=friend_info_id)
-
-        resp = {"name": current_user.name, "info_status": "friends"}
-        emit('update_friendship_info', resp,to=data['name'])
-        emit('friendship_request_response', "resp_friendship_request", to=current_user.name)
-    else:
-        f_request.reject()
-
-        resp = {"name": current_user.name, "info_status": "reject"}
-        emit('update_friendship_info', resp, to=data['name'])
-        emit('friendship_request_response', "resp_friendship_request", to=current_user.name)
-
-@socketio.on('delete_friendship')
-def delete_friendship(name):
-    friend = Users.get_user_by_name(name)
-    Friends.objects.delete_friendship(user_id=current_user.id, friend_id=friend.id)
-    resp = {"name": current_user.name, "info_status": "delete"}
-    emit('update_friendship_info', resp, to=name)
-    emit('friendship_request_response', "delete_friendship", to=current_user.name)
 
