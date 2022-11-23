@@ -67,8 +67,15 @@ const Nav = ({stateFriendsIsOpen, stateNotificationsIsOpen}) => {
         let friends = []
         for (let item of friendList){
             friends.push({nickName: item, online: true, id: item});
-          }
+        }
+        const notifications = [];
+        const notificationList = result.notifications;
+        for (let item of notificationList){
+            notifications.push({nickName: item.user_name, type: item.notification_type, id: `${item.user_name}-${item.notification_type}`})
+        }
+        
         dispatch({type: 'MAKE_FRIEND_LIST', payload: friends});
+        dispatch({type: 'MAKE_NOTIFICATIONS_LIST', payload: notifications});
         socket.emit('connection', {current_user_name: result.name});
       }
     

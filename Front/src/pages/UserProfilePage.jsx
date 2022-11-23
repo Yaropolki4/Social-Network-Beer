@@ -16,7 +16,6 @@ function UserProfilePage() {
     let [nickName, setNickName] = useState('');
     let [userStatus, setUserStatus] = useState('');
 
-    let otherFriends_ = [];
 
     async function validateNick(){
         let response = await fetch('/exist', {
@@ -31,6 +30,7 @@ function UserProfilePage() {
           navigate('/error');
         }
         else{
+          let otherFriends_ = [];
           setNickName(result.name);
           setUserStatus(result.description);
           let otherFriendsList = result.friends_list;
@@ -38,13 +38,13 @@ function UserProfilePage() {
           for (let item of otherFriendsList){
             otherFriends_.push({nickName: item, online: true, id: item});
           }
-          //setOtherFriends(otherFriends_);
+          setOtherFriends(otherFriends_);
         }
     }
 
     useEffect(() => {
       validateNick();
-    })
+    }, []);
     
     const {id} = useParams();
     const name = useSelector(state => state.info.nickName);

@@ -7,7 +7,17 @@ const NotificationAcceptItem = ({nickName, id}) => {
 
     const dispatch = useDispatch();
     const deleteNotification = () => {
-        dispatch({type: 'DELETE_NOTIFICATION', payload: id})
+        dispatch({type: 'DELETE_NOTIFICATION', payload: id});
+        async function deleteNotific(){
+            const result = await fetch('/delete/notification/accept', {
+                method: 'POST',
+                body: JSON.stringify({other_user_name: nickName}),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            });
+        }
+        deleteNotific();
     }
     
     

@@ -4,6 +4,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+	overflow: hidden;
+}
+body{
+	overflow: hidden;
+}
 .body{
     font-family: 'Montserrat';
     color: orange;

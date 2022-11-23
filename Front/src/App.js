@@ -5,12 +5,12 @@ import Nav from './components/Body/NAV/Nav';
 import {AuthContext} from './context/index';
 import AppRouter from './components/AppRouter';
 import { useSelector, useDispatch } from 'react-redux';
-import socket from './socket'
+import socket from './socket';
 
 
   const App = React.memo(function App(){
 
-
+  const dispatch = useDispatch();
 
   let auth = 0;
   if(localStorage.getItem('test')) auth = localStorage.getItem('test');
@@ -30,7 +30,9 @@ import socket from './socket'
     
     <AuthContext.Provider value = {{isAuth, setIsAuth}}>
       <BrowserRouter>
-        <div className = "body" onClick = {()=>{stateFriendsIsOpen[1](false); stateNotificationsIsOpen[1](false)}}>
+        <div className = "body" onClick = {()=>{stateFriendsIsOpen[1](false); 
+                                                stateNotificationsIsOpen[1](false);
+                                                dispatch({type: 'CHANGE_MESSAGER_STATE', payload: {messagerIsOpen: false}})}}>
           {isAuth ?<Nav stateFriendsIsOpen = {stateFriendsIsOpen} stateNotificationsIsOpen = {stateNotificationsIsOpen}/>
           : <div></div>}
           <AppRouter/>

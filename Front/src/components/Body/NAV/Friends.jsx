@@ -5,6 +5,7 @@ import {useSelector } from "react-redux";
 import SearchFriends from './SearchFriends';
 import { useMemo } from 'react';
 import { json } from 'react-router-dom';
+import Messager from './Messager';
 
 const Friends = ({stateFriendsIsOpen}) => {
 
@@ -33,12 +34,17 @@ const Friends = ({stateFriendsIsOpen}) => {
     useEffect(() => {
         if(stateFriendsIsOpen[0]) getUserNames();
     }, [searchValue]);
+
+
+
+
+
     return (
         <div className = 'nav-friends'>
             <SearchFriends searchValue = {searchValue} setSearchValue = {setSearchValue}/>
             <div className = 'searched-friends'>Друзья</div>
             {filteredFriends.map((friend)=> {
-                return <FriendItem  nickName = {friend.nickName} online = {friend.online} key = {friend.nickName}/>
+                return <FriendItem nickName = {friend.nickName} online = {friend.online} key = {friend.nickName}/>
             })}
             {searchValue && <div className = 'searched-users'>Глобальный поиск</div>}
             {searchValue && filteredUsers.map((name)=> {

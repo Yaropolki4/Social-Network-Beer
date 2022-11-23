@@ -1,0 +1,10 @@
+ .map{
+    height: 100vh;
+    -webkit-filter: grayscale(100%) url(./yellowfilter.svg#yellowfilter) invert(95%);
+    filter: grayscale(100%) url(./yellowfilter.svg#yellowfilter) invert(95%);
+    overflow: auto;
+} 
+.frfr{
+    -webkit-filter: none;
+    filter: none;
+}

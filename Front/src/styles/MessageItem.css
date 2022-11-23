@@ -1,0 +1,29 @@
+.nav-friends-chat-field-item {
+    margin-top: 10px;
+    background-color: #391ea4;
+    min-height: 50px;
+    height: fit-content;
+    word-wrap: break-word;
+    font-size: 18px;
+    line-height: 1.8;
+    border-radius: 15px;
+    padding: 5px;
+    max-width: 80%;
+    flex-direction: column;
+  }
+
+  .nav-friends-chat-field-item-2{
+    margin-left: 10px;
+    align-self: flex-start;
+  }
+
+  .nav-friends-chat-field-item-1{
+    align-self: flex-end;
+    margin-right: 10px;
+  }
+
+  .message-name{
+    font-weight: 800;
+    font-size: 14px;
+    color: orange;
+  }

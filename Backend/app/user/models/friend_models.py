@@ -11,14 +11,14 @@ class FriendshipRequest(db.Model):
     from_user и to_user это id соответствующих юзеров
     """
 
-    from_user = db.Column(db.Integer, db.ForeignKey("users.id"),
+    from_user_id = db.Column(db.Integer, db.ForeignKey("users.id"),
                           primary_key=True, nullable=False)
-    to_user = db.Column(db.Integer, db.ForeignKey("users.id"),
-                        nullable=False)
+    to_user = db.Column(db.Integer, db.ForeignKey("user_notification.user_id"),
+                        primary_key=True, nullable=False)
     message = db.Column(db.String(100), nullable=True)
 
     @staticmethod
-    def create_friendship_request(from_user: int, to_user: int):
+    def create_friendship_request(from_user_id: int, to_user: int):
         """
         Создание запроса в друзья
 
@@ -27,23 +27,27 @@ class FriendshipRequest(db.Model):
         :return:
         """
 
-        if from_user==to_user:
+        if from_user_id==to_user:
             return False
-        req_1 = FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first()
-        req_2 = FriendshipRequest.query.filter_by(from_user=to_user, to_user=from_user).first()
+        req_1 = FriendshipRequest.query.filter_by(from_user_id=from_user_id, to_user=to_user).first()
+        req_2 = FriendshipRequest.query.filter_by(from_user_id=to_user, to_user=from_user_id).first()
         if req_1 or req_2:
             return False
         else:
-            friendship_request = FriendshipRequest(from_user=from_user, to_user=to_user)
+            friendship_request = FriendshipRequest(from_user_id=from_user_id, to_user=to_user)
             db.session.add(friendship_request)
             db.session.commit()
             return True
 
     @staticmethod
-    def get_request(from_user: int, to_user: int):
-        return FriendshipRequest.query.filter_by(from_user=from_user, to_user=to_user).first()
+    def get_request(from_user_id: int, to_user: int):
+        return FriendshipRequest.query.filter_by(from_user_id=from_user_id, to_user=to_user).first()
 
-    def accept(self, user_info_id: int, friend_info_id: int):
+    @staticmethod
+    def get_all_request_to_user(to_user: int):
+        return FriendshipRequest.query.filter_by(to_user=to_user).all()
+
+    def accept(self):
         """
         Принять запрос в друзья
 
@@ -51,8 +55,7 @@ class FriendshipRequest(db.Model):
         :param friend_info_id: int
         :return:
         """
-        Friends.objects.create_friendship(user_id=self.from_user, friend_id=self.to_user,
-                                          user_info_id=user_info_id, friend_info_id=friend_info_id)
+        Friends.objects.create_friendship(user_id=self.from_user_id, friend_id=self.to_user)
 
         db.session.delete(self)
         db.session.commit()
@@ -72,9 +75,9 @@ class FriendshipRequest(db.Model):
 
 class FriendshipManager():
 
-    def create_friendship(self, user_id, friend_id, user_info_id, friend_info_id):
-        friendship = Friends(user_id=user_id, friend_id=friend_id, user_info_id=user_info_id)
-        friendship_reverse = Friends(user_id=friend_id, friend_id=user_id, user_info_id=friend_info_id)
+    def create_friendship(self, user_id, friend_id):
+        friendship = Friends(user_id=user_id, friend_id=friend_id)
+        friendship_reverse = Friends(user_id=friend_id, friend_id=user_id)
 
         db.session.add(friendship)
         db.session.add(friendship_reverse)
@@ -110,8 +113,7 @@ class Friends(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"),  nullable=False)
-    friend_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    user_info_id = db.Column(db.Integer, db.ForeignKey("usersinfo.id"), nullable=False)
+    friend_id = db.Column(db.Integer,  nullable=False)
     created_time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     objects = FriendshipManager()

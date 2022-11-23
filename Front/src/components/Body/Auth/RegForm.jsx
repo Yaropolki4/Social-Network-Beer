@@ -58,6 +58,7 @@ const RegForm = (props) =>{
     
               let result = await response.json()
               if(result['url-redirect']){
+                console.log(isAuth);
                 setIsAuth(true);
                 localStorage.setItem('test', 1);
               }

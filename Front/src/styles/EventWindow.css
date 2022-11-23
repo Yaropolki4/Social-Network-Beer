@@ -1,0 +1,147 @@
+.event-window{
+    position: absolute;
+    width: 300px;
+    height: auto;
+    z-index: 10;
+    border-radius: 20px;
+    display: flex;
+    border: 2px solid orange;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+.title {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.description{
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.text-description{
+    width: 230px;
+    height: 60px;
+    border-radius: 10px;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid orange;
+    background: none;
+    color: orange;
+}
+
+.text-title{
+    width: 230px;
+    margin-top: 10px;
+    height: 25px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid orange;
+    background: none;
+    padding: 0 5px;
+    color: orange;
+}
+
+.friends{
+    margin-top: 10px;
+}
+
+
+
+.field-of-friends input{
+    color: orange;
+    font-size: 20px;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    margin-right: 5px;
+    border: 1px solid orange;
+    background: none;
+}
+
+.field-and-button{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 5px;
+}
+.button-friends{
+    position: relative;
+}
+.button-friends button{
+    height: 40px;
+    width: 70px;
+    font-size: 10px;
+    font-weight: 600;
+    background-color: orange;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.button-friends.active button{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+.submit-and-reset{
+    margin-top: 10px;
+    display: flex;
+    column-gap: 10px;
+}
+
+.submit-and-reset input{
+    width: 110px;
+    height: 25px;
+    border-radius: 10px;
+    border: 1px solid orange;
+    background: none;
+    color: orange;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.list-of-friends{
+    display: none;
+}
+
+.list-of-friends.active{
+    display: block;
+    overflow:scroll;
+    position: absolute;
+    width: 70px;
+    height: 200px;
+    background-color: orange;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor:auto;
+    top: 40px;
+    right: 0;
+    color: black;
+    text-align: center;
+    -ms-overflow-style: none;
+    /* хром, сафари */
+}
+
+.list-of-friends::-webkit-scrollbar { width: 0; }
+
+.friend-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 5px 0;
+    font-weight: 600;
+    font-size: 16px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: pointer;
+}
+
+.friend-block.invited{
+    opacity: 0.5;
+    background-color: rgb(250, 209, 134);
+}

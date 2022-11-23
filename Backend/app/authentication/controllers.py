@@ -8,11 +8,10 @@ from flask import (
 from flask_login import login_user, logout_user, current_user
 from marshmallow import  ValidationError
 
-from .models import Users
-from app.user.models.user_models import UserInfo
+from .auth_models import Users
+from app.user.models.user_models import UserInfo, UserNotifications
 
-authentication = Blueprint('authentication', __name__, template_folder='templates/authentication',
-                           static_folder='static/authentication')
+authentication = Blueprint('authentication', __name__)
 
 
 @authentication.route('/login', methods=["GET", "POST"])
@@ -57,9 +56,10 @@ def auth():
 
                 user = Users.create_user(name, email, psw, repeat_psw)
                 UserInfo.create_user_info_default(user.id)
+                UserNotifications.create_notifications(user.id)
 
                 login_user(user, remember=True)
-                resp.data = json.dumps({"url-redirect": url_for('user.index')})
+                resp.data = json.dumps({"url-redirect": True})
                 return resp
             except ValidationError as err:
                 print(err.messages)

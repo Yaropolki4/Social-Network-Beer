@@ -1,0 +1,74 @@
+.nav-friends-chat {
+    transition: all 1s ease 0s;
+    transform: translate(0, -100%);
+    position: absolute;
+    top: 0;
+    width: 101%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 10px;
+    background-color: #e39401;
+    z-index: 10;
+  }
+  
+.nav-friends-chat.opened {
+    transition: all 1s ease 0s;
+    transform: translate(0, 0);
+  }
+  
+.nav-friends-chat .nav-friend-chat-close {
+    width: 50px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  
+.nav-friends-chat .nav-friends-chat-field {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #2c1b6e;
+    overflow-y: scroll;
+  }
+  
+.nav-friends-chat .nav-friends-chat-field::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+  
+.nav-friends-chat .nav-friends-chat-field .nav-friends-chat-field-item:first-child {
+    margin-top: 60px;
+  }
+  
+.nav-friends-chat .nav-friends-chat-form {
+    grid-row: 2/3;
+    width: 100%;
+  }
+  
+.nav-friends-chat .nav-friends-chat-form .form-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  
+.nav-friends-chat .nav-friends-chat-form .form-container .nav-friends-chat-form-text {
+    height: auto;
+    background-color: #2c1b6e;
+    border-top: 1px solid #e39401;
+    width: 330px;
+    font-size: 22px;
+    padding: 5px;
+  }
+  
+.nav-friends-chat .nav-friends-chat-form .form-container .nav-friends-chat-form-submit {
+    display: none;
+  }
+  
+.nav-friends-chat .nav-friends-chat-form .form-container .nav-friends-chat-form-submit input {
+    height: 100%;
+    font-size: 14px;
+    width: 100px;
+  }
