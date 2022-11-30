@@ -26,8 +26,10 @@ def create_app():
 
     import app.authentication.controllers as auth
     import app.user.controllers as user
+    import app.messages.controllers as messages
 
     app.register_blueprint(auth.authentication)
     app.register_blueprint(user.user)
+    app.register_blueprint(messages.message)
 
     return app
