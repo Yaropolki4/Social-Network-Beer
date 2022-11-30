@@ -12,7 +12,7 @@ class AcceptFriendshipNotifications(db.Model):
 
     @staticmethod
     def create_notification(user_id: int, from_user_id: int):
-        notifications = AcceptFriendshipNotifications(user_id=user_id, from_user_id=from_user_id)
+        notifications = AcceptFriendshipNotifications(user_info=user_id, from_user_id=from_user_id)
         db.session.add(notifications)
         db.session.commit()
 
@@ -20,6 +20,5 @@ class AcceptFriendshipNotifications(db.Model):
     def delete_notification(user_id: int, from_user_id: int):
         notifications = AcceptFriendshipNotifications.query.filter_by(user_id=user_id,
                                                                       from_user_id=from_user_id).first()
-        if notifications:
-            db.session.delete(notifications)
-            db.session.commit()
+        db.session.delete(notifications)
+        db.session.commit()

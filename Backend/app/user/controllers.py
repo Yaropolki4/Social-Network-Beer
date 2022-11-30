@@ -27,6 +27,7 @@ def profile():
 
     notifications = UserNotifications.get_all_notifications(current_user.id)
     notifications_list = create_notifications_list(notifications)
+    print(name, description, notifications_list)
 
     resp_dict = {"name": name, "description": description,
                  "friends_list": friends_list, "notifications": notifications_list}
@@ -55,7 +56,6 @@ def exist_user():
 @user.route('/delete/notification/accept', methods=['POST', 'GET'])
 @login_required
 def delete_accept_notification():
-    print(123)
     data = request.json
     other_user = Users.get_user_by_name(data['other_user_name'])
     AcceptFriendshipNotifications.delete_notification(user_id=current_user.id, from_user_id=other_user.id)

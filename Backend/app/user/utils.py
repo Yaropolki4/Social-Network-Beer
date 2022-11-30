@@ -16,8 +16,8 @@ def create_notifications_list(notifications: dict):
     notifications_list = []
     for key in notifications.keys():
         for notification in notifications[key]:
-            user = Users.get_user_by_id(notification.from_user_id)
-            notification_dict = {'user_name': user.name,
+            name = Users.get_user_by_id(notification.from_user_id).name
+            notification_dict = {'user_name': name,
                                  'notification_type': key}
             notifications_list.append(notification_dict)
     return notifications_list

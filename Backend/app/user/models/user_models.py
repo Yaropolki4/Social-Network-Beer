@@ -62,11 +62,11 @@ class UserNotifications(db.Model):
 
         accept_notification = user_notification.accept_friendship_notification
         if accept_notification:
-            notifications_dict['accept_friend_request'] = accept_notification
+            notifications_dict['accept_notification'] = accept_notification
 
         friendship_notifications = user_notification.friendship_request_notification
         if friendship_notifications:
-            notifications_dict['friend_request'] = friendship_notifications
+            notifications_dict['friendship_notifications'] = friendship_notifications
 
         return notifications_dict
 

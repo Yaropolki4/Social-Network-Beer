@@ -29,25 +29,25 @@ class FriendshipRequest(db.Model):
 
         if from_user_id==to_user:
             return False
-        req_1 = FriendshipRequest.query.filter_by(from_user_id=from_user_id, to_user=to_user).first()
-        req_2 = FriendshipRequest.query.filter_by(from_user_id=to_user, to_user=from_user_id).first()
+        req_1 = FriendshipRequest.query.filter_by(from_user=from_user_id, to_user=to_user).first()
+        req_2 = FriendshipRequest.query.filter_by(from_user=to_user, to_user=from_user_id).first()
         if req_1 or req_2:
             return False
         else:
-            friendship_request = FriendshipRequest(from_user_id=from_user_id, to_user=to_user)
+            friendship_request = FriendshipRequest(from_user=from_user_id, to_user=to_user)
             db.session.add(friendship_request)
             db.session.commit()
             return True
 
     @staticmethod
     def get_request(from_user_id: int, to_user: int):
-        return FriendshipRequest.query.filter_by(from_user_id=from_user_id, to_user=to_user).first()
+        return FriendshipRequest.query.filter_by(from_user=from_user_id, to_user=to_user).first()
 
     @staticmethod
     def get_all_request_to_user(to_user: int):
         return FriendshipRequest.query.filter_by(to_user=to_user).all()
 
-    def accept(self):
+    def accept(self, user_info_id: int, friend_info_id: int):
         """
         Принять запрос в друзья
 
@@ -113,7 +113,7 @@ class Friends(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"),  nullable=False)
-    friend_id = db.Column(db.Integer,  nullable=False)
+    friend_id = db.Column(db.Integer, nullable=False)
     created_time = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     objects = FriendshipManager()

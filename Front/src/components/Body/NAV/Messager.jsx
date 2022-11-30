@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 const Messager = ({nickName}) => {
+    console.log(nickName);
 
     const [messagerClasses, setMessagerClasses] = useState(['nav-friends-chat'])
     const textArea = useRef(null);
@@ -23,10 +24,35 @@ const Messager = ({nickName}) => {
         const messageItem = {type: '', body: ''};
         setMessages([...messages, messageItem]);
     }
+
+    async function getMessages(){
+        const response = await fetch('/get/messages', {
+            method: 'POST',
+            body: JSON.stringify({other_user_name: nickName}),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+        });
+        const result = await response.json();
+        const processedMessages = [];
+        console.log(result);
+        for(let elem of result.messages){
+            console.log(elem);
+            const type = elem['from-me'] ? 'from-me' : 'to-me';
+            const procMessageItem = {nickName: nickName, type: type, body: elem.content};
+            processedMessages.push(procMessageItem);
+        }
+        setMessages(processedMessages);
+    }
     useEffect(() => {
         if(messagerIsOpen) setMessagerClasses(['nav-friends-chat opened']);
         else setMessagerClasses(['nav-friends-chat']);
     }, [messagerIsOpen]);
+
+    useEffect(() => {
+        getMessages();
+    }, [messagerIsOpen]);
+
 
     const changeTextArea = (event) => {
         let tags = /<(.*?)>/g;
@@ -40,16 +66,16 @@ const Messager = ({nickName}) => {
                 }
             }, 0);
             console.log(data.replace(tags, ''));
-            socket.send(`${data.replace(tags, '')}`);
+            socket.emit('send-message', {message: `${data.replace(tags, '')}`, from_user_name: current_user_name, to_user_name: nickName});
         }
     }
 
-    socket.on('message', data => {      
+    socket.on('send-message', data => {      
         addMessage('from-me', data);
-        fieldRef.current.scrollIntoView({ top: false,
-            behavior: 'smooth',
-            block: 'start',
-        });
+        // fieldRef.current.scrollIntoView({ top: false,
+        //     behavior: 'smooth',
+        //     block: 'start',
+        // });
     });
 
     return (
@@ -58,7 +84,7 @@ const Messager = ({nickName}) => {
                     <MessageItem nickName = {nickName} type = 'to-me' body = 'hsdafkllkjadshlksdhfklsadhlasdhfklasdflkdwefwefwefwefwefwefwefwefwe'/>
                     <MessageItem nickName = {nickName} type = 'from-me' body = 'hsdafkllkjadshlksdhfklsadhlasdhfklasdflkdwefwefwefwefwefwefwefwefwe'/>
                         {messages.map(item => {
-                            return <MessageItem nickName = {nickName} ref={fieldRef} type = {item.type} body = {item.body}/>
+                            return <MessageItem nickName = {nickName} type = {item.type} body = {item.body} key = {Date.now()}/>
                         })}
                     </div>
                     <div className="nav-friends-chat-form">

@@ -12,6 +12,7 @@ const FriendItem = ({nickName, online}) => {
         setWindowIsOpen(true);
     }
 
+    const messagerIsOpen = useSelector(state => state.messager.messagerIsOpen);
     const [windowIsOpen, setWindowIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const FriendItem = ({nickName, online}) => {
 
     return (
         <div>
-        <Messager nickName = {nickName}/>
+        {messagerIsOpen && <Messager nickName = {nickName}/>}
         {windowIsOpen == false && 
         <div onClick = {createWindow} className = "nav-friends-item-1">
             <div className ="nav-friends-item-ava">

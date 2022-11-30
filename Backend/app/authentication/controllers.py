@@ -59,7 +59,7 @@ def auth():
                 UserNotifications.create_notifications(user.id)
 
                 login_user(user, remember=True)
-                resp.data = json.dumps({"url-redirect": True})
+                resp.data = json.dumps({"url-redirect": url_for('user.index')})
                 return resp
             except ValidationError as err:
                 print(err.messages)
